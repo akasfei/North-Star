@@ -1,0 +1,52 @@
+<section class="blogsArchive">
+	<ul class="nav nav-tabs">
+              <li class="active"><a href="#manage" id="existing_li">Existing</a></li>
+              <li><a href="#requests" id="requests_li">Requests</a></li>
+              <li><a href="#newaccess" id="newaccess_li" data-toggle="tab">New Access</a></li>
+            </ul>
+	<div class="tab-content">
+	  <div class="tab-pane fade active in" id="manage"><%- content %></div>
+	  <div class="tab-pane fade" id="requests"></div>
+      <div class="tab-pane fade control-group" id="newaccess">
+        <input class="input-xlarge" type="text" name="new_access_id" id="new_access_id" placeholder="Access identification"/><br />
+        <input class="input-xlarge" type="text" name="new_access_code" id="new_access_code" placeholder="Access code"/>
+        <div class="row-fluid">
+            <input class="input-medium" type="text" name="new_access_level" id="new_access_level" placeholder="Access level"/>
+            <input class="input-medium" type="text" name="new_access_mlevel" id="new_access_mlevel" placeholder="Modify level"/>
+        </div>
+        <a href="javascript:void(0)" class="btn new_access_submit" data-loading-text="Connecting...">Submit</a>
+      </div>
+	</div>
+</section>
+<div id="formModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="modalLabel">Comfirm your operation.</h3>
+  </div>
+  <div class="modal-body">
+	 <div class="request_grant control-group" style="display:none;">
+			<input class="input-xlarge" type="text" name="new_access_id" id="new_access_id" placeholder="Access identification"/><span class="label pull-right">Access ID</span>
+			<input class="input-xlarge" type="text" name="new_access_code" id="new_access_code" placeholder="Access code"/>
+			<div class="row-fluid">
+				<input class="input-medium" type="text" name="new_access_level" id="new_access_level" placeholder="Access level"/>
+				<input class="input-medium" type="text" name="new_access_mlevel" id="new_access_mlevel" placeholder="Modify level"/>
+			</div>
+	 </div>
+	 <div class="request_deny" style="display:none;">
+			<h4>Please confirm delete.</h4>
+	 </div>
+	 <div class="alert alert-block alert-error fade in">
+				<h4 id="alert_head"></h4>
+				<p id="alert_info"></p>
+	 </div>
+	 <div class="access_delete_confirm" style="display:none;">
+	   <h4>Please confirm delete.</h4>
+	 </div>
+  </div>
+	
+  <div class="modal-footer">
+    <button class="btn btn-primary modal_confirm" data-loading-text="Connecting...">Confirm</button>
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+  </div>
+</div>
+<script type="text/javascript" src="/js/access_manage.js"></script>

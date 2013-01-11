@@ -1,0 +1,37 @@
+<section class="profile-header row-fluid"> 
+  <img class="img-polaroid profile-img pull-left" src="/assets/profileimg/<%= profileImgSrc %>" alt="Profile image"> 
+  <div class="profile-name"> 
+    <h2>Welcome back, <%= accessid %> <span class="label label-inverse">Access level <%= accesslevel %></span></h2>
+    <span>
+      <a href="/idn/profile" class="btn btn-primary"> My profile </a>
+			<a href="/idn/archive" class="btn btn-info"> View archive </a>
+			<%- buttons_extend %>
+    </span> 
+  </div> 
+</section>
+<section class="blogsArchive">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#feeds" id="feeds_li"> News feed </a></li>
+    <li><a href="#articles" id="articles_li"> My articles </a></li>
+    <li><a href="#contacts" id="contacts_li"> My Contacts </a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade active in" id="feeds">
+      <%- recent %>
+    </div>
+    <div class="tab-pane fade" id="articles">
+      <article class="blogPreview">
+        <p><a href="\idn\archive\new" class="btn btn-primary btn-large"><i class="icon-plus icon-white"></i>New Entry</a></p>
+      </article>
+      <p><span class="label label-info">Recent entries</span></p>
+      <div class="row-fluid my_recent">
+      </div>
+    </div>
+    <div class="tab-pane fade" id="contacts">
+      <div class="row-fluid my_contacts">
+        <p><img src="/img/squareajax_30.gif" alt="Loading" /> Loading... </p>
+      </div>
+    </div>
+  </div>
+</section>
+<script type="text/javascript" src="/js/idn.js"></script>

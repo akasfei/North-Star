@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>北极星网</title>
+<link rel='shortcut icon' href="/img/favicon.ico" />
+<link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+<link rel='stylesheet' href='/stylesheets/bootstrap-responsive.css' />
+<link rel="stylesheet" href="/stylesheets/font-awesome.css">
+<link rel='stylesheet' href='/stylesheets/common.css' />
+<link rel='stylesheet' href='/stylesheets/zhcn.css' />
+<script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+	$(".navbar-inner>ul.nav").children("li").removeClass("active");
+	$("a[href='/<%= title %>']").parent().addClass('active');
+});
+</script>
+</head>
+
+<body>
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner"> <img class="brand" src="/img/logo_navbar_cn.svg" alt="SFEI Systems">
+    <ul class="nav">
+      <li class="active"><a href="/index">主序列</a></li>
+      <li><a href="/archive">档案库</a></li>
+      <li><a href="/idn">图形数据网</a></li>
+      
+    </ul>
+    <ul class="nav pull-right">
+	  <li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-globe icon-white"></i>选择语言</a>
+		<ul class="dropdown-menu">
+          <li><a href="?lang=en">English</a></li>
+          <li><a href="?lang=zh">简体中文</a></li>
+        </ul>
+	  </li>
+      <li class="dropdown">
+      	<a href="about" class="dropdown-toggle version" data-toggle="dropdown"><%= version %></a>
+        <ul class="dropdown-menu">
+        	<%- access %>
+          <li class="divider"></li>
+          <li><a href="/about">关于</a></li>
+        </ul>
+      </li>
+    </ul>
+    </div>
+</header>
+<div class="container">
+  <%- body %>
+  <footer class="well well-small">
+    <h6>&copy; SFEI 2012.</h6>
+  </footer>
+</div>
+<!-- end container --> 
+</body>
+</html>

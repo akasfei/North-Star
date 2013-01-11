@@ -1,0 +1,48 @@
+  <div class="row-fluid">
+      <p><span class="label label-info">Blogs Archive - New Entry</span><a class="btn btn-info btn-small pull-right" href="javascript:window.history.back()"><i class="icon-circle-arrow-left icon-white"></i> Return </a></p>
+    </div>
+  <section class="blogsArchive">
+    
+    <article>
+      <header>
+        <input class="input-xxlarge" type="text" name="entrytitle" id="entrytitle" placeholder="Enter blog title here"/>
+				<div class="accesslevel_div input-append">
+					<input class="span2" type="text" name="accesslevel" id="accesslevel" placeholder="Access level"/>
+					<div class="btn-group">
+						<button class="btn dropdown-toggle add_exceptions" data-toggle="dropdown"> Exceptions <span class="caret"></span></button>
+						<ul class="exceptions_menu dropdown-menu">
+							<li><a href="javascript:void(0)"><i class="icon-loading"></i> Loading... </a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="input-append">
+					<input class="span3" type="text" name="tags" id="tags" placeholder="Tags"/>
+					<div class="btn-group">
+						<button class="btn dropdown-toggle get_tags_dropdown" data-toggle="dropdown"><span class="caret"></span></button>
+						<ul class="tags_menu dropdown-menu">
+							<li><a href="javascript:void(0)"><i class="icon-loading"></i> Loading... </a></li>
+						</ul>
+					</div>
+				</div>
+		<input class="input-block-level" type="text" name="abstract" id="abstract" placeholder="Enter blog abstract here"/>
+      </header>
+            <h4 class="loading_info"><img src="/img/squareajax_30.gif" alt="loading">Loading editor, please standby....</h4>
+			<textarea id="editor" name="content"><p>Enter your blog content here...</p></textarea>
+			<div class="alert alert-block alert-error fade in">
+			<a class="close" data-dismiss="alert" href="#">&times;</a>
+				<h4 id="alert_head"></h4>
+				<p id="alert_info"></p>
+			</div>
+			<div class="btn-group">
+				<a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" data-loading-text="Posting..." href="#"> Save as.. <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="javascript:void(0)" class="new_blog_submit" data-lang="en"> English </a></li>
+					<li><a href="javascript:void(0)" class="new_blog_submit" data-lang="zh"> 简体中文 </a></li>
+				</ul>
+			</div>
+    </article>
+  </section>
+	<script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="/js/ckeditor/adapters/jquery.js"></script>
+	<script type="text/javascript" src="/js/archive_new.js"></script>
+    <script type="text/javascript" src="/js/filter.js"></script>

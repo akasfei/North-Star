@@ -1,0 +1,165 @@
+﻿/* CSS Document */
+@charset "utf-8";
+.version {
+	font-size: 9px;
+	font-weight: 100;
+	color: #777777;
+	text-decoration: none;
+}
+.logoHeader {
+	margin-bottom: 15px;
+	height: 240px;
+	background: url(../img/logo.svg) center no-repeat;
+}
+.idnlogoHeader {
+	margin-bottom: 15px;
+	height: 240px;
+	background: url(../img/logo_idn.svg) center no-repeat;
+}
+body {
+	background: url(../img/bg_dna.jpg);
+	padding-top: 40px;
+}
+body .container {
+	background: #fff;
+	padding: 20px;
+}
+section.comments,
+section.blogsArchive,
+section.userinfo {
+	padding: 0 15px 15px 15px;
+	margin: 10px 0;
+	border-bottom: 1px solid rgba(20, 40, 60, 0.4);
+}
+
+section.blogsArchive > article,
+section.comments > article,
+.profile-articles > article,
+.profile-desc,
+.profile-body,
+.profile-edit,
+.profile-article,
+.entry_article {
+	padding: 0 10px 10px 10px;
+	margin: 8px 0;
+	border-bottom: 1px dotted rgba(20, 40, 60, 0.6);
+}
+.exceptions_menu > li > a {
+	font-size: 12px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.accesslevel_div > .add-on > a > .icon-remove {
+	opacity: 0.5;
+}
+img.brand {
+  padding: 5px 10px !important;
+  margin-left: 0px !important;
+  opacity:0.8;
+}
+blockquote {
+  font-family: "Courier New", Courier, monospace;
+}
+.zh {
+  font-family: "Microsoft YaHei", "微软雅黑", "黑体", "Courier New", monospace !important;
+}
+.en {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+i.icon-loading {
+  width: 15px;
+  height: 15px;
+  background-image: url(../img/squareajax_15.gif);
+  background-position: 0 0;
+}
+i.icon-loading .icon-white,
+a:hover > .icon-loading{
+  background-image: url(../img/squareajax_15_white.gif) !important;
+}
+i.icon-loading-large {
+  width: 30px;
+  height: 30px;
+  background-image: url(../img/squareajax_30.gif);
+  background-position: 0 0;
+}
+i.icon-loading-large .icon-white,
+a:hover > .icon-loading-large{
+  background-image: url(../img/squareajax_30_white.gif) !important;
+}
+
+#index-carousel{
+  margin: 0 auto;
+  height: 480px;
+}
+.carousel-inner > .item > img,
+.carousel-inner > .item > .carousel-body {
+  width: 840px;
+  margin: 0 auto;
+}
+.carousel-caption a{
+  color: #ddd;
+  border-bottom: 1px #ccc dotted;
+}
+.carousel-caption a:hover{
+  color: #fff;
+  border-bottom: none;
+}
+.loading-placehold{
+  margin: 20px 40px;
+}
+textarea{
+  margin: 15px auto;
+}
+
+.profile-header{
+  height: 240px;
+  margin-bottom: 20px;
+}
+
+.profile-name{
+  margin-top: 140px;
+  padding: 5px;
+}
+
+.profile-img{
+  margin: 30px 20px 0 0;
+}
+
+.profile-desc .control-label{
+  padding-top: 0;
+}
+.entry_thumbnail .btn-link,
+.entry_article .btn-link,
+.blogPreview .btn-link,
+.comment .btn-link{
+  padding: 0;
+}
+.entry_thumbnail .dropdown-menu > img,
+.entry_article .dropdown-menu > img {
+  margin: 0 65px;
+}
+.profile-thumbnail .profile-head{
+  height: 54px
+}
+.profile-thumbnail .profile-head img,
+.profile-thumbnail .profile-intro,
+.profile-thumbnail .profile-follow,
+.profile-header,
+.profile-article .profile-head img,
+.profile-article .profile-intro,
+.profile-article .profile-follow
+{
+  margin: 0px 10px 0 10px;
+}
+.blogsArchive .tab-content{
+  overflow: visible;
+}
+.profile-article {
+  min-height: 210px;
+}
+.profile-id{
+  margin-bottom: 6px;
+}
+.carousel-caption{
+  background-color: rgba(0,0,0,.5);
+}

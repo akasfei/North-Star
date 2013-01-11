@@ -1,0 +1,21 @@
+<section class="profile-header row-fluid">
+  <img class="img-polaroid profile-img pull-left" src="/assets/profileimg/<%= profileImgSrc %>" alt="档案图片"/>
+  <div class="profile-name">
+    <h1><%= profileId %></h1>
+    <%- profile_extend %>
+  </div>
+</section>
+<section class="profile-body">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#articles" id="articles_li" data-toggle="tab"> 文章 </a></li>
+    <li><a href="#profile" id="profile_li" data-toggle="tab"> 档案 </a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade active in profile-articles" id="articles">
+      <%- articles %>
+    </div>
+    <div class="tab-pane fade profile-desc form-horizontal" id="profile">
+      <%- profile %>
+    </div>
+  </div>
+</section>

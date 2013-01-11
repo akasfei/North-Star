@@ -1,0 +1,60 @@
+<section class="profile-header row-fluid">
+  <img class="img-polaroid profile-img pull-left" src="/assets/profileimg/<%= profileImgSrc %>" alt="Profile image"/>
+  <div class="profile-name">
+    <h1><%= profileId %></h1>
+    <span><a href="/idn/profile/edit/imgselect" class="btn">Change profile image</a></span>
+  </div>
+</section>
+<section class="profile-edit form-horizontal">
+  <p><span class="label">Profile description</span></p>
+  <div class="control-group">
+    <label class="control-label" for="profile_gender">Gender</label>
+    <div class="controls">
+      <label class="radio inline">
+        <input type="radio" name="profile_gender" id="profile_gender_Radios1" value="m" <%= p_m_checked %>>
+        Male
+      </label>
+      <label class="radio inline">
+        <input type="radio" name="profile_gender" id="profile_gender_Radios2" value="f" <%= p_f_checked %>>
+        Female
+      </label>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_dob">Date of Birth</label>
+    <div class="controls">
+      <input type="text" class="input-medium" name="profile_dob" id="profile_dob" value="<%= p_dob %>"/>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_location">Location</label>
+    <div class="controls">
+      <input type="text" class="input-xlarge" name="profile_location" id="profile_location" value="<%= p_location %>"/>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_blog_addr">Blog address</label>
+    <div class="controls">
+      <input type="text" class="input-large" name="profile_blog_addr" id="profile_blog_addr" value="<%= p_blog_addr %>"/>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_email">E-mail</label>
+    <div class="controls">
+      <input type="text" class="input-large" name="profile_email" id="profile_email" value="<%= p_email %>"/>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_intro">Introduction</label>
+    <div class="controls">
+      <textarea type="text" class="span8" name="profile_intro" id="profile_intro" rows="4"><%= p_intro %></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <a class="btn btn-primary profile_submit" href="javascript:0"> Save </a>
+    </div>
+  </div>
+</section>
+<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/js/profile-edit.js"></script>

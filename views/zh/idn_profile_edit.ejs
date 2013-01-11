@@ -1,0 +1,60 @@
+<section class="profile-header row-fluid">
+  <img class="img-polaroid profile-img pull-left" src="/assets/profileimg/<%= profileImgSrc %>" alt="档案图片"/>
+  <div class="profile-name">
+    <h1><%= profileId %></h1>
+    <span><a href="/idn/profile/edit/imgselect" class="btn">修改档案图片</a></span>
+  </div>
+</section>
+<section class="profile-edit form-horizontal">
+  <p><span class="label">档案信息</span></p>
+  <div class="control-group">
+    <label class="control-label" for="profile_gender_Radios1">性别</label>
+    <div class="controls">
+      <label class="radio inline">
+        <input type="radio" name="profile_gender" id="profile_gender_Radios1" value="m" <%= p_m_checked %>>
+        男
+      </label>
+      <label class="radio inline">
+        <input type="radio" name="profile_gender" id="profile_gender_Radios2" value="f" <%= p_f_checked %>>
+        女
+      </label>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_dob">生日</label>
+    <div class="controls">
+      <input type="text" class="input-medium" name="profile_dob" id="profile_dob" value="<%= p_dob %>"/>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_location">所在地</label>
+    <div class="controls">
+      <input type="text" class="input-xlarge" name="profile_location" id="profile_location" value="<%= p_location %>"/>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_blog_addr">博客</label>
+    <div class="controls">
+      <input type="text" class="input-large" name="profile_blog_addr" id="profile_blog_addr" value="<%= p_blog_addr %>"/>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_email">电子邮件</label>
+    <div class="controls">
+      <input type="text" class="input-large" name="profile_email" id="profile_email" value="<%= p_email %>"/>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_intro">个人简介</label>
+    <div class="controls">
+      <textarea class="span8" name="profile_intro" id="profile_intro" rows="4"><%= p_intro %></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <a class="btn btn-primary profile_submit" href="javascript:0"> 保存 </a>
+    </div>
+  </div>
+</section>
+<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/js/profile-edit.js"></script>

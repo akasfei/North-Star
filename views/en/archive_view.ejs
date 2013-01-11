@@ -1,0 +1,28 @@
+<div class="row-fluid">
+    <span class="pull-right archive_toolbar"><a class="btn btn-info" href="javascript:window.history.back()"><i class="icon-circle-arrow-left icon-white"></i> Return </a> <%- buttons_edit %> </span>
+      <p><span class="label label-info">Blogs Archive</span></p>
+    </div>
+<section class="blogsArchive" data-objid="<%= objid %>">
+    
+    <article class="blogPreview <%- language %>">
+      <header>
+        <h1><%= entrytitle %></h1>
+        <div class="btn-group">
+          <a class="btn btn-link author-id dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><i class="icon-user"></i><%- author %></a>
+          <div class="dropdown-menu profile-thumbnail"><img src="/img/squareajax_30.gif" alt="loading"></div>
+        </div>
+        <h6><%= timestamp %></h6>
+		<h5><%= abstract %></h5>
+        <p><%- tags %></p>
+      </header>
+      <%- content %>
+      <footer>
+        <h6 class="pull-right"></h6>
+        <h6><%= time %></h6>
+      </footer>
+    </article>
+</section>
+<section class="comments">
+  <p><span class="label label-info">Comments</span></p>
+  <%- comments %>
+</section>

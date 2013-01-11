@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+body{font: 1.0em Georgia, "Times New Roman", Times, serif;
+text-align: center;
+}
+a:link {
+	color: #333;
+	text-decoration: none;
+}
+a:visited {
+	font-size: 1em;
+	text-decoration: none;
+	color: #333;
+}
+a:hover {
+	text-decoration: none;
+	color: #666;
+}
+a:active {
+	text-decoration: none;
+	color: #999;
+}
+</style>
+<script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
+<script language="javascript">
+var convertToHex = function (n) {
+	var hex = "";
+	var i=1;
+	for (;i*16<=n;i*=16) ;
+	for (;i>=1;n%=i, i/=16)
+	{
+		switch ( parseInt(n/i) )
+		{
+			case 10:
+				hex += "a";
+				break;
+			case 11:
+				hex += "b";
+				break;
+			case 12:
+				hex += "c";
+				break;
+			case 13:
+				hex += "d";
+				break;
+			case 14:
+				hex += "e";
+				break;
+			case 15:
+				hex += "f";
+				break;
+			default:
+				hex += parseInt(n/i);
+				break;
+		}
+	}
+	return hex;
+}
+var showTimeStamp = function (){
+	var d = new Date();
+	$("#timeStamp").text("0x" + convertToHex(parseInt(d.getTime()/1000)));
+}
+//var n = parseInt(d.getTime()/1000); 
+/* var n = d.getFullYear() + d.getDate()*10000 + (d.getMonth()+1)*1000000 + d.getMinutes()*100000000 + d.getHours()*10000000000;*/
+$(document).ready(function(e) {
+    showTimeStamp();
+	$("#showTimeStampLink").click(function(e) {
+		showTimeStamp();
+	});
+	$("#convertToDec").blur(function(e) {
+		var d = new Date();
+        var hex = $("#convertToDec").val();
+		var dec = 0;
+		var i, j;
+		for (i=hex.length -1 ;i>=0;i--)
+		{
+			var hexBase = 1;
+			for (j=0;j<hex.length - i - 1;j++)
+				hexBase *= 16;
+			if (hex.charCodeAt(i) > 96)
+			{
+				dec += hexBase*(hex.charCodeAt(i)-87);
+			} else {
+				if (hex.charCodeAt(i)>64)
+					dec += hexBase*(hex.charCodeAt(i)-55);
+				else
+					dec += hexBase*(hex.charCodeAt(i)-48);
+			}
+		}
+		d.setTime(dec*1000);
+		$("#convertResult").text(d.toString());
+    });
+});
+</script>
+<title>Timestamp Hex Converter</title>
+</head>
+
+<body>
+<p><a id="showTimeStampLink" href="javascript:void(0);">Timestamp:</a></p>
+<p id="timeStamp"></p>
+<p><input id="convertToDec" name="convertToDec" type="text" size="8" /></p>
+<p id="convertResult"></p>
+
+</body>
+</html>

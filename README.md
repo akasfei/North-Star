@@ -1,19 +1,15 @@
-North-Star
-==========
+# North-Star
 
 North Star is an online blog website built with Node.js and Mongodb.
 
-Getting Started
-===============
+## Getting Started
 
-Get North Star
---------------
+### Get North Star
 
 * [Download the latest release](https://github.com/akasfei/North-Star/zipball/master).
 * Clone the repo: `git clone git://github.com/akasfei/North-Star.git`.
 
-Get Node.js and Mongodb
------------------------
+### Get Node.js and Mongodb
 
 You can get Node.js at [http://www.nodejs.org/](http://www.nodejs.org/)
 
@@ -24,8 +20,7 @@ You can get Mongodb at [http://www.mongodb.org/](http://www.mongodb.org/)
 
 Mongodb version 2.0 or newer is supported.
 
-Clear hot
----------
+### Clear hot
 
 Before launching the application, please ensure that mongodb is running.
 
@@ -43,8 +38,13 @@ If this is the first time you start the server, an administrator account will be
 
 All right, that's all there is to do it. Visit [localhost](http://localhost/) to see your application!
 
-License
-=======
+## Documentation
+
+Available on [GitHub Wiki](https://github.com/akasfei/North-Star/wiki)
+
+Only several pages available at this moment. More coming up!
+
+## License
 
 >   Copyright (c) 2009-2013 SFEI
 

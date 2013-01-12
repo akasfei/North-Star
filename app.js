@@ -36,35 +36,39 @@ var parseHtml = function(htmlName) { // seting up html layout models
 //parseHtml('idnlayout');
 
 
-app.configure(function(){
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.cookieParser());
-  app.use(express.session({
-    store: new MongoStore({
-      db: mongodb.db
-    }),
-    secret: 'sfeisysCS'
-  }));
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
-});
-
-app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
-
-app.configure('production', function(){
-  app.use(express.errorHandler());
-});
-
-// Routes
-require('./routes')(app);
-require('./models/init')();
-
-app.listen(80, function(){
-  console.log("Express server listening on port 80 in %s mode", app.settings.env);
+require('./models/init')(function (err){
+  app.configure(function(){
+	app.set('views', __dirname + '/views');
+	app.set('view engine', 'ejs');
+	app.use(express.logger('dev'));
+	app.use(express.bodyParser());
+	app.use(express.cookieParser());
+	if (err)
+	  app.use(express.session({secret: 'sfeisysCS'}));
+	else
+	app.use(express.session({
+	  store: new MongoStore({
+		db: mongodb.db
+	  }),
+	  secret: 'sfeisysCS'
+	}));
+	app.use(express.methodOverride());
+	app.use(app.router);
+	app.use(express.static(__dirname + '/public'));
+  });
+  
+  app.configure('development', function(){
+	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+  });
+  
+  app.configure('production', function(){
+	app.use(express.errorHandler());
+  });
+  
+  // Routes
+  require('./routes')(app);
+  
+  app.listen(80, function(){
+	console.log("Express server listening on port 80 in %s mode", app.settings.env);
+  });
 });

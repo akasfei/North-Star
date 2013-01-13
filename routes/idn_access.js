@@ -125,20 +125,26 @@ module.exports = function(app, config) {
 		'admin' : false
 	  }
 	};
-	db.insert('access', access, function(err){
-	  if (err){
-		res.send(err);
-		return;
-	  } else {
-		new Log({
-		  'type': 'Access',
-		  'tag': 'New access',
-		  'user': req.body.id,
-		  'desc': 'Access granted.:' + req.body.id,
-		  'req': req
-		}).store();
-		res.send({'ok': true});
-	  }
+	db.findOne('access', {'id': access.id}, function(err, doc){
+	  if (err)
+	    return res.send(err);
+	  if (doc)
+	    return res.send({err: 'This access id already exists.'});
+	  db.insert('access', access, function(err){
+		if (err){
+		  res.send(err);
+		  return;
+		} else {
+		  new Log({
+			'type': 'Access',
+			'tag': 'New access',
+			'user': req.body.id,
+			'desc': 'Access granted.:' + req.body.id,
+			'req': req
+		  }).store();
+		  res.send({'ok': true});
+		}
+	  });
 	});
   });
   

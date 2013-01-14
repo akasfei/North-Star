@@ -388,9 +388,8 @@ var render_profile_article = function(access, req){
   '</div></article>');
 }
 
-function Renderer(lang){
-  this.lang = lang;
-  this.accept_language = ['en','zh'];
+var setLang = function(lang) {
+  this.lang = lang;  
   switch (lang){
 	case 'en':
 	{
@@ -406,27 +405,40 @@ function Renderer(lang){
 	  break;
 	}
   }
-  this.setLang = function(lang) {
-	this.lang = lang;  
-	switch (lang){
-      case 'en':
-	  {
-	    this.locale = require('./localization').en;
-		this.lang = 'en';
-	    break;
+}
+
+var getLang = function (req, renderer){
+  if (req.query.lang){
+	renderer.setLang(req.query.lang);
+	req.session.lang = renderer.lang;
+  } else {
+    if (req.session.lang){
+	  renderer.setLang(req.session.lang);
+    } else {
+	  var accept_language = req.headers['accept-language'].split(',');
+	  for (var lang in accept_language){
+		renderer.setLang(lang.substring(0,1));
+		if (renderer.lang == lang.substring(0,1)) {
+		  req.session.lang = renderer.lang;
+		  return renderer.lang + '/'; 
+		}
 	  }
-	  case 'zh':
-	  default:
-	  {
-	    this.locale = require('./localization').zh;
-		this.lang = 'zh';
-	    break;
-	  }
-    }
+	}
   }
+  return renderer.lang + '/';
+}
+
+function Renderer(lang){
+  this.lang = lang;
+  this.accept_language = ['en','zh'];
+  setLang();
+  this.setLang = setLang;
   this.getView = function() {
 	return this.lang + '/';  
   }
+  this.render = function (callback){
+	return callback;
+  };
   this.nav_dropdown_li = render_nav_dropdown_li;
   this.nav_extend = render_nav_extend;
   this.article_entry = render_article_entry;

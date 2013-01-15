@@ -46,12 +46,12 @@ require('./models/init')(function (err){
 	if (err)
 	  app.use(express.session({secret: 'sfeisysCS'}));
 	else
-	app.use(express.session({
-	  store: new MongoStore({
-		db: mongodb.db
-	  }),
-	  secret: 'sfeisysCS'
-	}));
+	  app.use(express.session({
+		store: new MongoStore({
+		  db: mongodb.db
+		}),
+		secret: 'sfeisysCS'
+	  }));
 	app.use(express.methodOverride());
 	app.use(app.router);
 	app.use(express.static(__dirname + '/public'));

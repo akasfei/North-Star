@@ -98,6 +98,31 @@ module.exports = function (app){
     });
   });
   
+  app.get('/admin', function(req, res){
+	setLang(req, renderer);
+    var access_li = (req.session.access == null) ? 
+        renderer.nav_dropdown_li('NA',-1) : 
+        renderer.nav_dropdown_li(req.session.access.id,req.session.access.clearance.level);
+	if (req.session.access && req.session.access.clearance.admin){
+	  res.render('admin', { 
+        title: '',
+		mongourl: db.generate_mongo_url(),
+        layout: renderer.getView() +'layout',
+        version: 'NTWRK>>IDN>' + systemVersion,
+        access: access_li,
+        nav_archive: renderer.nav_extend({})
+      });
+	} else {
+	  res.render(renderer.getView() + '401', { 
+        title: '',
+        layout: renderer.getView() +'layout',
+        version: 'NTWRK>>IDN>' + systemVersion,
+        access: access_li,
+        nav_archive: renderer.nav_extend({})
+      });
+	}
+  });
+  
   require('./archive')(app, config);
   require('./idn')(app, config);
   require('./idn_archive')(app, config);

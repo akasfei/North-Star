@@ -2,6 +2,12 @@
 $(document).ready(function(e) {
   $('#index-carousel').carousel({interval: 10000});
   
+  /* Scroll to top */
+  $('.back-to-top').click(function(e) {
+    $('html, body').animate({
+	  'scrollTop': 0
+	}, 1000);
+  });
   
   /* Delete archive entry */
   $('.blogsArchive').on('click', '.entry_remove', function(e){

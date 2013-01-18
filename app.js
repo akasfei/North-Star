@@ -3,7 +3,6 @@
  * Module dependencies.
  */
  
-var settings = require('./settings');
 var Db = require('./models/db');
 var mongodb = new Db();
 var express = require('express');

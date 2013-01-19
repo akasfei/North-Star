@@ -71,7 +71,7 @@ var find_and_render = function(type, collection, query, sort, limit, callback, r
         var contents = '';
         if (cursor) {
           cursor.sort(sort/*{'time': 1}*/);
-		  cursor.limit(limit);
+      cursor.limit(limit);
           cursor.each(function(err, entry) {
             if (err)
             {
@@ -84,30 +84,30 @@ var find_and_render = function(type, collection, query, sort, limit, callback, r
                 contents = renderer.no_entry_found();
               return callback(contents);
             }
-			switch (type){
-			  case 'article_entry':
-			    contents += renderer.article_entry(entry, admin);
-				break;
-			  case 'article_entry_thumbnail':
-			    contents += renderer.article_entry_thumbnail(entry, admin);
-				break;
-		      case 'access_entry':
-			    contents += renderer.access_entry(entry); 
-				break;
-			  case 'access_request_entry':
-			    contents += renderer.access_request_entry(entry);
-				break;
-			  case 'dropdown_li':
-			  	contents += renderer.dropdown_li(entry.id);
-				break;
-			  case 'log':
-			    contents += new Log(entry).render(renderer);
-				break;
-			  case 'article_profile':
-			    contents += renderer.profile_article(entry);
-				break;
-			}
-		  });
+      switch (type){
+        case 'article_entry':
+          contents += renderer.article_entry(entry, admin);
+        break;
+        case 'article_entry_thumbnail':
+          contents += renderer.article_entry_thumbnail(entry, admin);
+        break;
+          case 'access_entry':
+          contents += renderer.access_entry(entry); 
+        break;
+        case 'access_request_entry':
+          contents += renderer.access_request_entry(entry);
+        break;
+        case 'dropdown_li':
+          contents += renderer.dropdown_li(entry.id);
+        break;
+        case 'log':
+          contents += new Log(entry).render(renderer);
+        break;
+        case 'article_profile':
+          contents += renderer.profile_article(entry);
+        break;
+      }
+      });
         }
       });
     });
@@ -118,13 +118,13 @@ var findOne = function(collection, query, callback){
   require('mongodb').connect(this.generate_mongo_url(), function(err, conn){
     conn.collection(collection, function(err, coll){
       coll.findOne(query, function(err, doc){
-		conn.close();
-		if (err)
-		  return callback(err, null);
+    conn.close();
+    if (err)
+      return callback(err, null);
         if (doc)
           return callback(null, doc);
-		else
-		  return callback(null, null);
+    else
+      return callback(null, null);
       });
     });
   });
@@ -132,12 +132,12 @@ var findOne = function(collection, query, callback){
 
 var update = function(collection, query, data, override, callback){
   if (!override)
-  	data = { $set: data };
+    data = { $set: data };
   require('mongodb').connect(this.generate_mongo_url(), function(err, conn){
     conn.collection(collection, function(err, coll){
       coll.update(query, data, {upsert: true, safe:true}, function(err) {
         conn.close();
-		return callback(err);
+    return callback(err);
       });
     });
   });
@@ -148,7 +148,7 @@ var insert = function(collection, data, callback){
     conn.collection(collection, function(err, coll){
       coll.insert(data, {safe:true}, function(err) {
         conn.close();
-		return callback(err);
+    return callback(err);
       });
     });
   });
@@ -158,8 +158,8 @@ var remove = function (collection, query, callback){
   require('mongodb').connect(this.generate_mongo_url(), function(err, conn){
      conn.collection(collection, function(err, coll){
       coll.remove(query);
-	  conn.close();
-	  return callback(err);
+    conn.close();
+    return callback(err);
      });
   });
 }

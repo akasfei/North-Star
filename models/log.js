@@ -25,11 +25,11 @@
  
 var toJSON = function(){
   return {
-	'type': this.type,
-	'tag': this.tag,
-	'user': this.user,
-	'desc': this.desc,
-	'time': this.time  
+  'type': this.type,
+  'tag': this.tag,
+  'user': this.user,
+  'desc': this.desc,
+  'time': this.time  
   };
 }
  

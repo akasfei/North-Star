@@ -24,7 +24,7 @@ function Init(callback) {
         }
         console.log('Initialization complete. Closing mongodb connection.');
         conn.close();
-		return callback(null);
+    return callback(null);
       });
     });
   });

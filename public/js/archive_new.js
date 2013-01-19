@@ -1,7 +1,7 @@
 /* 
-*new_blog.js
-*using ajax to upload a new blog
-*/
+ *new_blog.js
+ *using ajax to upload a new blog
+ */
 
 $(document).ready(function(e) {
   $('.loading_info').remove();
@@ -28,20 +28,20 @@ $(document).ready(function(e) {
   });
   $('.new_blog_submit').click(function(e) {
     var contentdata = CKEDITOR.instances.editor.getData();
-	var _this = $(this);
-	var exceptions = [];
-	var tags = $('#tags').val().split(',');
-	var exceptions_span = $('.exception');
-	for (var i=0; i < exceptions_span.length; i++)
-	  exceptions.push(exceptions_span[i].innerText);
+    var _this = $(this);
+    var exceptions = [];
+    var tags = $('#tags').val().split(',');
+    var exceptions_span = $('.exception');
+    for (var i=0; i < exceptions_span.length; i++)
+      exceptions.push(exceptions_span[i].innerText);
     var postdata = {
       'entrytitle' : $('#entrytitle').val(),
       'abstract' : $('#abstract').val(),
       'content' : contentdata,
       'accesslevel' : parseInt($('#accesslevel').val()),
-	  'exceptions' : exceptions,
-	  'language' : _this.attr('data-lang'),
-	  'tags': tags,
+    'exceptions' : exceptions,
+    'language' : _this.attr('data-lang'),
+    'tags': tags,
       'time' : new Date()
     }
     $('.alert').alert();
@@ -69,8 +69,8 @@ $(document).ready(function(e) {
       $('#alert_info').text('Invalid access level.');
       return;
     }
-	var $toggle = $('.new_blog_submit').parent().parent().siblings('.dropdown-toggle');
-	$toggle.button('loading');
+  var $toggle = $('.new_blog_submit').parent().parent().siblings('.dropdown-toggle');
+  $toggle.button('loading');
     $.post('/idn/archive/new',postdata,function(data, stats) {
       $toggle.button('reset');
       if (data.ok){

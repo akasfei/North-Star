@@ -17,7 +17,7 @@ $(document).ready(function(e) {
         window.location.href = '/idn/access/request/success';
       }, 'json');
     } else {
-	  $this.button('reset');
+    $this.button('reset');
       alert('Please fill in the forms correctly.');
     }
   });

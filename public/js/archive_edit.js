@@ -27,20 +27,20 @@ $(document).ready(function(e) {
   });
   $('.submit').click(function(e) {
     var contentdata = CKEDITOR.instances.editor.getData();
-	var _this = $(this);
-	var exceptions = [];
-	var tags = $('#tags').val().split(',');
-	var exceptions_span = $('.exception');
-	for (var i=0; i < exceptions_span.length; i++)
-	  exceptions.push(exceptions_span[i].innerText);
+  var _this = $(this);
+  var exceptions = [];
+  var tags = $('#tags').val().split(',');
+  var exceptions_span = $('.exception');
+  for (var i=0; i < exceptions_span.length; i++)
+    exceptions.push(exceptions_span[i].innerText);
     var postdata = {
       'entrytitle' : $('#entrytitle').val(),
       'abstract' : $('#abstract').val(),
       'content' : contentdata,
       'accesslevel' : parseInt($('#accesslevel').val()),
-	  'exceptions' : exceptions,
-	  'language' : _this.attr('data-lang'),
-	  'tags': tags,
+    'exceptions' : exceptions,
+    'language' : _this.attr('data-lang'),
+    'tags': tags,
       'time' : new Date()
     }
     $('.alert').alert();
@@ -68,11 +68,11 @@ $(document).ready(function(e) {
       $('#alert_info').text('Invalid access level.');
       return;
     }
-	var $toggle = $('.submit').parent().parent().siblings('.dropdown-toggle');
-	$toggle.button('loading');
+  var $toggle = $('.submit').parent().parent().siblings('.dropdown-toggle');
+  $toggle.button('loading');
     $.post('/idn/archive/edit',postdata,function(data, stats) {
       $toggle.button('reset');
-	  if (data.ok){
+    if (data.ok){
         window.location.href = '/archive/' + data.title;
       } else {
         $('.alert').show();

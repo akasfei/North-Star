@@ -1,35 +1,35 @@
 ﻿/* CSS Document */
 @charset "utf-8";
 .version {
-	font-size: 9px;
-	font-weight: 100;
-	color: #777777;
-	text-decoration: none;
+  font-size: 9px;
+  font-weight: 100;
+  color: #777777;
+  text-decoration: none;
 }
 .logoHeader {
-	margin-bottom: 15px;
-	height: 240px;
-	background: url(../img/logo.svg) center no-repeat;
+  margin-bottom: 15px;
+  height: 240px;
+  background: url(../img/logo.svg) center no-repeat;
 }
 .idnlogoHeader {
-	margin-bottom: 15px;
-	height: 240px;
-	background: url(../img/logo_idn.svg) center no-repeat;
+  margin-bottom: 15px;
+  height: 240px;
+  background: url(../img/logo_idn.svg) center no-repeat;
 }
 body {
-	background: url(../img/bg_dna.jpg);
-	padding-top: 40px;
+  background: url(../img/bg_dna.jpg);
+  padding-top: 40px;
 }
 body .container {
-	background: #fff;
-	padding: 20px;
+  background: #fff;
+  padding: 20px;
 }
 section.comments,
 section.blogsArchive,
 section.userinfo {
-	padding: 0 15px 15px 15px;
-	margin: 10px 0;
-	border-bottom: 1px solid rgba(20, 40, 60, 0.4);
+  padding: 0 15px 15px 15px;
+  margin: 10px 0;
+  border-bottom: 1px solid rgba(20, 40, 60, 0.4);
 }
 
 section.blogsArchive > article,
@@ -40,17 +40,17 @@ section.comments > article,
 .profile-edit,
 .profile-article,
 .entry_article {
-	padding: 0 10px 10px 10px;
-	margin: 8px 0;
-	border-bottom: 1px dotted rgba(20, 40, 60, 0.6);
+  padding: 0 10px 10px 10px;
+  margin: 8px 0;
+  border-bottom: 1px dotted rgba(20, 40, 60, 0.6);
 }
 .exceptions_menu > li > a {
-	font-size: 12px;
-	padding-top: 2px;
-	padding-bottom: 2px;
+  font-size: 12px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 .accesslevel_div > .add-on > a > .icon-remove {
-	opacity: 0.5;
+  opacity: 0.5;
 }
 img.brand {
   padding: 5px 10px !important;

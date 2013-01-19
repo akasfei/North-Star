@@ -13,21 +13,21 @@ $(document).ready(function(e) {
 	  if (data.ok) {
 		$('.authenticate').slideUp('slow', function(){
 		  window.location.reload();
-		});
-	  } else {
-	    alert(data.err);
-		$this.button('reset');
-		$('#access_code').parent().addClass('error');
-	  }
+    });
+    } else {
+      alert(data.err);
+    $this.button('reset');
+    $('#access_code').parent().addClass('error');
+    }
     }, 'json');
   });
   
   $('#articles_li').click(function(e) {
-	var $this = $(this);
+  var $this = $(this);
     $.post('/idn/getMyArticles', null, function(data){
       if (data.ok){
-		$('.my_recent').empty().append(data.content);
-		$this.tab('show');
+    $('.my_recent').empty().append(data.content);
+    $this.tab('show');
 	  } else
 	    alert(data.err);
 	}, 'json');

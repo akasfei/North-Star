@@ -10,7 +10,7 @@ $(document).ready(function(e) {
   });
   
   /* Delete archive entry */
-  $('.blogsArchive').on('click', '.entry_remove', function(e){
+  $('.blogsArchive, .profile-articles').on('click', '.entry_remove', function(e){
     $(this).siblings('.entry_remove_confirm').fadeIn('fast');
   });
   $('.archive_toolbar').on('click', '.entry_remove', function(e){
@@ -25,16 +25,16 @@ $(document).ready(function(e) {
       alert(data.err);
   }, 'json');
   });
-  $('.blogsArchive').on('click', '.entry_remove_confirm', function(e){
-  var $element = $(this).parent();
-  $.post('/idn/archive/remove', {'objid': $element.attr('data-objid')}, function(data){
-    if (data.ok){
-      $element.slideUp('slow', function(){
-        $element.remove();
-      });
-    } else
-      alert(data.err);
-  }, 'json');
+  $('.blogsArchive, .profile-articles').on('click', '.entry_remove_confirm', function(e){
+    var $element = $(this).parent();
+    $.post('/idn/archive/remove', {'objid': $element.attr('data-objid')}, function(data){
+      if (data.ok){
+        $element.slideUp('slow', function(){
+          $element.remove();
+        });
+      } else
+        alert(data.err);
+    }, 'json');
   });
   
   

@@ -66,6 +66,8 @@ var Log = require('../models/log');
 
 var find_and_render = function(type, collection, query, sort, limit, callback, renderer, admin){
   require('mongodb').connect(this.generate_mongo_url(), function(err, conn){
+    if (err || !conn)
+      return callback('Error: No open connections');
     conn.collection(collection, function(err, coll){
       coll.find(query/*{ 'accesslevel' : {$lte : '1'} }*/, function(err, cursor){
         var contents = '';
@@ -116,6 +118,8 @@ var find_and_render = function(type, collection, query, sort, limit, callback, r
 
 var findOne = function(collection, query, callback){
   require('mongodb').connect(this.generate_mongo_url(), function(err, conn){
+    if (err || !conn)
+      return callback(typeof err === 'undefined'? err: {err: 'No open connections'}, null);
     conn.collection(collection, function(err, coll){
       coll.findOne(query, function(err, doc){
     conn.close();
@@ -134,6 +138,8 @@ var update = function(collection, query, data, override, callback){
   if (!override)
     data = { $set: data };
   require('mongodb').connect(this.generate_mongo_url(), function(err, conn){
+    if (err || !conn)
+      return callback(typeof err === 'undefined'? err: {err: 'No open connections'}, null);
     conn.collection(collection, function(err, coll){
       coll.update(query, data, {upsert: true, safe:true}, function(err) {
         conn.close();
@@ -145,6 +151,8 @@ var update = function(collection, query, data, override, callback){
 
 var insert = function(collection, data, callback){
   require('mongodb').connect(this.generate_mongo_url(), function(err, conn){
+    if (err || !conn)
+      return callback(typeof err === 'undefined'? err: {err: 'No open connections'}, null);
     conn.collection(collection, function(err, coll){
       coll.insert(data, {safe:true}, function(err) {
         conn.close();
@@ -156,7 +164,9 @@ var insert = function(collection, data, callback){
 
 var remove = function (collection, query, callback){
   require('mongodb').connect(this.generate_mongo_url(), function(err, conn){
-     conn.collection(collection, function(err, coll){
+    if (err || !conn)
+      return callback(typeof err === 'undefined'? err: {err: 'No open connections'}, null);
+    conn.collection(collection, function(err, coll){
       coll.remove(query);
     conn.close();
     return callback(err);

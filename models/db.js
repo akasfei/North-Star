@@ -174,30 +174,40 @@ var remove = function (collection, query, callback){
   });
 }
 
-function Mongo() {
+var updateParam = function() {
+  console.log('Updating database parameters... @' + new Date());
+  var params = {};
   if(process.env.VCAP_SERVICES){
     var env = JSON.parse(process.env.VCAP_SERVICES);
-    var Mongo = env['mongodb-2.0'][0]['credentials'];
+    params = env['mongodb-2.0'][0]['credentials'];
   }
   else{
-    var Mongo = {
+    params = {
       "hostname":"localhost",
       "port":27017,
       "username":"",
       "password":"",
       "name":"",
       "db":"deepearth"
-    }
+    };
   }
-  Mongo.generate_mongo_url = generate_mongo_url;
-  Mongo.generate_ObjectId = require('mongodb').BSONPure.ObjectID;
-  Mongo.find_and_render = find_and_render;
-  Mongo.findOne = findOne;
-  Mongo.update = update;
-  Mongo.insert = insert;
-  Mongo.remove = remove;
-  Mongo.ObjectID = require('mongodb').ObjectID;
-  return Mongo;
+  for (prop in params){
+    this[prop] = params[prop];
+  }
+}
+
+function Mongo() {
+  this.updateParam = updateParam;
+  this.updateParam();
+  this.generate_mongo_url = generate_mongo_url;
+  this.generate_ObjectId = require('mongodb').BSONPure.ObjectID;
+  this.find_and_render = find_and_render;
+  this.findOne = findOne;
+  this.update = update;
+  this.insert = insert;
+  this.remove = remove;
+  this.ObjectID = require('mongodb').ObjectID;
+  return this;
 }
 
 module.exports = Mongo;

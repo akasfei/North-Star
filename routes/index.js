@@ -16,8 +16,7 @@ module.exports = function (app){
   var Renderer = require('../models/render');
   var renderer = new Renderer('');
   var setLang = require('../models/localization').setLang;
-  var Db = require('../models/db');
-  var db = new Db();
+  var db = app.db;
   var Log = require('../models/log');
   var Fortress = require('../models/security');
   

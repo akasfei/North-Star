@@ -9,6 +9,7 @@ var express = require('express');
 var MongoStore = require('connect-mongo')(express);
 var filesystem = require('fs');
 var app = module.exports = express.createServer();
+app.db = mongodb;
 
 // Configuration
 var parseHtml = function(htmlName) { // seting up html layout models
@@ -35,33 +36,35 @@ var parseHtml = function(htmlName) { // seting up html layout models
 //parseHtml('idnlayout');
 
 
-require('./models/init')(function (err){
+require('./models/init')(app, function (err){
   app.configure(function(){
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.cookieParser());
-  if (err)
-    app.use(express.session({secret: 'sfeisysCS'}));
-  else
-    app.use(express.session({
-    store: new MongoStore({
-      db: mongodb.db
-    }),
-    secret: 'sfeisysCS'
-    }));
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
-  });
-  
-  app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-  });
-  
-  app.configure('production', function(){
-  app.use(express.errorHandler());
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'ejs');
+    app.use(express.logger('dev'));
+    app.use(express.bodyParser());
+    app.use(express.cookieParser());
+    if (err)
+      app.use(express.session({secret: 'sfeisysCS'}));
+    else {
+      setInterval(function() {app.db.updateParam();}, 300000);
+      app.use(express.session({
+        store: new MongoStore({
+          db: mongodb.db
+        }),
+        secret: 'sfeisysCS'
+      }));
+    }
+    app.use(express.methodOverride());
+    app.use(app.router);
+    app.use(express.static(__dirname + '/public'));
+    });
+    
+    app.configure('development', function(){
+      app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+    });
+    
+    app.configure('production', function(){
+    app.use(express.errorHandler());
   });
   
   // Routes

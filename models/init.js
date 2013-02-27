@@ -1,10 +1,8 @@
 /*
  * database initialization
  */
-function Init(callback) {
-  var Db = require('../models/db');
-  var db = new Db();
-  require('mongodb').connect(db.generate_mongo_url(), function(err, conn){
+function Init(app, callback) {
+  require('mongodb').connect(app.db.generate_mongo_url(), function(err, conn){
     if (!conn)
     {
       console.log('Warning. Database unreachable.');

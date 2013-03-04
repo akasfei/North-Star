@@ -121,7 +121,7 @@ module.exports = function (app, config){
       layout: renderer.getView() +'idnlayout',
       version: 'NTWRK>>IDN>' + systemVersion,
       profileId: profile.id,
-      profile_extend: renderer.profile_extend(myself, following),
+      profile_extend: renderer.profile_extend(myself, following, !req.session.access),
       profileImgSrc: profile.profileimg ? profile.profileimg: 'Monochrome.jpg',
       articles: contents,
       profile: renderer.profile_desc(profile),

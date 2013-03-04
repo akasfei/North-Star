@@ -288,11 +288,13 @@ var render_comment_new = function(access){
   '</article>');
 }
 
-var render_profile_extend = function(myself, following){
+var render_profile_extend = function(myself, following, noaccess){
   if (myself)
     return ('<span><a href="/idn/profile/edit" class="btn">'+this.locale.Edit_profile+'</a> <a href="/idn/profile/edit/imgselect" class="btn">'+this.locale.Change_profile_image+'</a></span>');
   if (following)
     return ('<span><a href="javascript:void(0)" class="btn btn-success disabled"><i class="icon-ok icon-white"></i>'+this.locale.following+'</a> <a href="javascript:void(0)" class="btn btn-danger profile-follow-btn"><i class="icon-remove icon-white"></i>'+this.locale.removefollow+'</a></span>');
+  if (noaccess)
+    return ('<span><a href="/idn" class="btn btn-small">'+this.locale.signInToFollow+'</a></span>');
   else
     return ('<span><a href="javascript:void(0)" class="btn btn-success profile-follow-btn">'+this.locale.follow+'</a></span>');
 }
@@ -361,16 +363,16 @@ var render_profile_not_found = function(){
 var render_profile_article = function(access, req){
   var follow_btn = '';
   if (req && req.session.access){
-  if (req.session.access.id == access.id)
-    follow_btn = '<a href="javascript:void(0)" class="btn btn-small btn-success profile-follow-btn disabled">'+this.locale.follow+'</a>';
-  else if (req.session.access.follows){
-    for (var i=0; i<req.session.access.follows.length; i++){
-    if (req.session.access.follows[i] == access.id){
-      follow_btn = '<a href="javascript:void(0)" class="btn btn-small btn-success disabled"><i class="icon-ok icon-white"></i>'+this.locale.following+'</a> <a href="javascript:void(0)" class="btn btn-small btn-danger profile-unfollow-btn"><i class="icon-remove icon-white"></i>'+this.locale.removefollow+'</a>';
-      break;
+    if (req.session.access.id == access.id)
+      follow_btn = '<a href="javascript:void(0)" class="btn btn-small btn-success profile-follow-btn disabled">'+this.locale.follow+'</a>';
+    else if (req.session.access.follows){
+      for (var i=0; i<req.session.access.follows.length; i++){
+        if (req.session.access.follows[i] == access.id){
+          follow_btn = '<a href="javascript:void(0)" class="btn btn-small btn-success disabled"><i class="icon-ok icon-white"></i>'+this.locale.following+'</a> <a href="javascript:void(0)" class="btn btn-small btn-danger profile-unfollow-btn"><i class="icon-remove icon-white"></i>'+this.locale.removefollow+'</a>';
+          break;
+        }
+      }
     }
-    }
-  }
   if (follow_btn == '')
     follow_btn = '<a href="javascript:void(0)" class="btn btn-small btn-success profile-follow-btn">'+this.locale.follow+'</a>';
   }

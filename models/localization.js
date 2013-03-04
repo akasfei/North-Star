@@ -52,7 +52,8 @@ exports.en = {
   'desc': 'Description',
   'profile': 'Profile',
   'Profile_not_found': 'Profile not found.',
-  'Not_following': 'You are not following this user.'
+  'Not_following': 'You are not following this user.',
+  'signInToFollow': 'Sign in to follow'
 }
 
 exports.zh = {
@@ -103,7 +104,8 @@ exports.zh = {
   'desc': '个人资料',
   'profile': '资料',
   'Profile_not_found': '未找到档案条目。',
-  'Not_following': '您当前没有关注该用户。'
+  'Not_following': '您当前没有关注该用户。',
+  'signInToFollow': '认证以关注该用户'
 }
 
 exports.setLang = function (req, renderer){

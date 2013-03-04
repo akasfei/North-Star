@@ -70,7 +70,7 @@ require('./models/init')(app, function (err){
   // Routes
   require('./routes')(app);
   
-  app.listen(80, function(){
-  console.log("Express server listening on port 80 in %s mode", app.settings.env);
+  app.listen(8080, function(){
+  console.log("Express server listening on port 8080 in %s mode", app.settings.env);
   });
 });

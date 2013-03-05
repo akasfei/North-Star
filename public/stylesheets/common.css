@@ -168,9 +168,15 @@ textarea{
   bottom: 10px;
   right: 10px;
 }
-.back-to-top .btn{
-  padding: 4px;
+.back-to-top > a{
+  text-decoration: none;
   font-size: 50px;
+  color: #252525;
+  opacity: 0.5;
+}
+.back-to-top > a:hover {
+  text-decoration: none;
+  opacity: 0.75;
 }
 .back-to-top.affix-top{
   position: fixed;

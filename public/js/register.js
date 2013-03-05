@@ -18,7 +18,12 @@ $(document).ready(function(e) {
     if (request.id && request.code && request.email)
     {
       $.post('/idn/access/register', request, function(data){
-        window.location.href = '/idn/access/register/success';
+        if (data.ok)
+          window.location.href = '/idn/access/register/success';
+        else {
+          alert(data.err);
+          $this.button('reset');
+        }
       }, 'json');
     } else {
     $this.button('reset');

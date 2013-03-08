@@ -52,8 +52,37 @@
   </div>
   <div class="control-group">
     <div class="controls">
-      <a class="btn btn-primary profile_submit" href="javascript:0"> Save </a>
+      <a class="btn btn-primary profile_submit" href="javascript:void(0)"> Save </a>
     </div>
+  </div>
+</section>
+<section class="profile-change-passwd">
+  <p><span class="label">Change password</span></p>
+  <div class="control-group">
+    <label class="control-label" for="profile_old_passwd">Old password</label>
+    <div class="controls">
+      <input type="password" class="input-large" name="profile_old_passwd" id="profile_old_passwd" />
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_new_passwd">New password</label>
+    <div class="controls">
+      <input type="password" class="input-large" name="profile_new_passwd" id="profile_new_passwd" />
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_new_passwd_repeat">Repeat new password</label>
+    <div class="controls">
+      <input type="password" class="input-large" name="profile_new_passwd_repeat" id="profile_new_passwd_repeat" />
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <a class="btn btn-primary profile-passwd-submit" href="javascript:void(0)"> Save </a>
+    </div>
+  </div>
+  <div class="alert alert-success passwd-success" style="display:none;">
+    <p>Your password has been successfully modifed.</p>
   </div>
 </section>
 <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>

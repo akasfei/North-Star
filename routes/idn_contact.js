@@ -142,16 +142,38 @@ module.exports = function (app, config){
   
   app.post('/idn/profile/edit', function (req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':['authenticated']}) ){
-    res.send({err: renderer.locale.Not_Authenticated});
-    return;
-  }
-  req.session.access.desc = req.body;
-  db.update('access', {id: req.session.access.id}, {desc: req.body}, false, function(err){
-    if (err)
-      res.send(err);
-    else
-      res.send({ok: true});
+      res.send({err: renderer.locale.Not_Authenticated});
+      return;
+    }
+    req.session.access.desc = req.body;
+    db.update('access', {id: req.session.access.id}, {desc: req.body}, false, function(err){
+      if (err)
+        res.send(err);
+      else
+        res.send({ok: true});
+    });
   });
+
+  app.post('/idn/profile/edit/passwd', function (req, res){
+    if (! Fortress({'req': req, 'res': res, 'protocols':['authenticated']}) ){
+      res.send({err: renderer.locale.Not_Authenticated});
+      return;
+    }
+    var hash1 = require('crypto').createHash('sha1');
+    var hash2 = require('crypto').createHash('sha1');
+    var old_codehash = hash.update(req.body.oldcode, 'utf8').digest('base64');
+    var new_codehash = hash.update(req.body.newcode, 'utf8').digest('base64');
+    db.findOne('access', {id: req.session.access.id}, function (err, doc){
+      if (doc){
+        if (doc.codehash != old_codehash)
+          return res.send({'err': renderer.invalid_code()});
+        db.update('access', {id: req.session.access.id}, {codehash: new_codehash}, false, function(err){
+          if (err)
+            return res.send(err);
+          return res.send({ok: true});
+        });
+      }
+    })
   });
   
   app.post('/idn/profile/edit/imgselect', function (req, res){

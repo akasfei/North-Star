@@ -4,12 +4,12 @@
  */
 $(document).ready(function(e) {
   $('.register_submit').click(function(e) {
-  if ($('#new_access_password').val() != $('#new_access_password_rp').val() ){
-    $('#new_access_password_rp').parent().addClass('error');
-    return alert('Password mismatch.\n两次密码输入不同。');
-  }
-  var $this = $('.register_submit');
-  $this.button('loading');
+    if ($('#new_access_password').val() != $('#new_access_password_rp').val() ){
+      $('#new_access_password_rp').parent().addClass('error');
+      return alert('Password mismatch.\n两次密码输入不同。');
+    }
+    var $this = $('.register_submit');
+    $this.button('loading');
     var request = {
       'id' : $('#new_access_id').val(),
       'code' : $('#new_access_password').val(),

@@ -1,10 +1,20 @@
 ﻿<header class="idnlogoHeader"></header>
-<div class="row-fluid">
-  <div class="span4 offset4 authenticate">
+<div class="row-fluid" id="authenticate">
+  <div class="span4 offset4">
     <h2>请提供访问代号和密码：</h2>
     <div class="control-group"><input class="input-block-level" type="text" name="access_id" id="access_id" placeholder="访问代号:"/></div>
     <div class="control-group"><input class="input-block-level access_code" type="password" name="access_code" id="access_code" placeholder="访问密码:"/></div>
-    <p> <a href="/idn/access/register" class="btn"> 申请访问权限 </a><a href="javascript:void(0)" class="btn btn-primary access_code_submit pull-right" data-loading-text="连接中…"> 认证 </a></p>
+    <p> <a href="javascript:void(0)" class="btn" id="register-btn"> 申请访问权限 </a><a href="javascript:void(0)" class="btn btn-primary access_code_submit pull-right" data-loading-text="连接中…"> 认证 </a></p>
+  </div>
+</div>
+<div class="row-fluid" id="form-signup" style="display:none;">
+  <div class="span4 offset4">
+    <h2>申请访问权限：</h2>
+    <div class="control-group"><input class="input-block-level access_code" type="text" name="new_access_id" id="new_access_id" placeholder="输入访问代号"/></div>
+    <div class="control-group"><input class="input-block-level" type="password" name="new_access_password" id="new_access_password" placeholder="密码"/></div>
+    <div class="control-group"><input class="input-block-level" type="password" name="new_access_password_rp" id="new_access_password_rp" placeholder="重复密码"/></div>
+    <div class="control-group"><input class="input-block-level" type="text" name="new_access_email" id="new_access_email" placeholder="电子邮件地址"/></div>
+    <div class="control-group"><a href="javascript:void(0)" class="btn btn-primary register_submit" data-loading-text="Connecting..."> 确认信息 </a></div>
   </div>
 </div>
 <script type="text/javascript" src="/js/idn.js"></script>

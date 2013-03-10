@@ -56,5 +56,34 @@
     </div>
   </div>
 </section>
+<section class="profile-change-passwd form-horizontal">
+  <p><span class="label">修改密码</span></p>
+  <div class="control-group">
+    <label class="control-label" for="profile_old_passwd">旧密码</label>
+    <div class="controls">
+      <input type="password" class="input-large" name="profile_old_passwd" id="profile_old_passwd" />
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_new_passwd">新密码</label>
+    <div class="controls">
+      <input type="password" class="input-large" name="profile_new_passwd" id="profile_new_passwd" />
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="profile_new_passwd_repeat">重复新密码</label>
+    <div class="controls">
+      <input type="password" class="input-large" name="profile_new_passwd_repeat" id="profile_new_passwd_repeat" />
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <a class="btn btn-primary profile-passwd-submit" href="javascript:void(0)"> 确认 </a>
+    </div>
+  </div>
+  <div class="alert alert-success passwd-success" style="display:none;">
+    <p>密码修改成功。</p>
+  </div>
+</section>
 <script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/js/profile-edit.js"></script>

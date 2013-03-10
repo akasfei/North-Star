@@ -161,8 +161,8 @@ module.exports = function (app, config){
     }
     var hash1 = require('crypto').createHash('sha1');
     var hash2 = require('crypto').createHash('sha1');
-    var old_codehash = hash.update(req.body.oldcode, 'utf8').digest('base64');
-    var new_codehash = hash.update(req.body.newcode, 'utf8').digest('base64');
+    var old_codehash = hash1.update(req.body.oldcode, 'utf8').digest('base64');
+    var new_codehash = hash2.update(req.body.newcode, 'utf8').digest('base64');
     db.findOne('access', {id: req.session.access.id}, function (err, doc){
       if (doc){
         if (doc.codehash != old_codehash)

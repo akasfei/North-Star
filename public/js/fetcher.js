@@ -3,7 +3,6 @@
  * fetch article thumbnails of specific tags
  */
 $(document).ready(function(e) {
-  /*
   $.post('/archive/get', {filter: "天文学"}, function(data){
   if (data.err)
     alert(data.err);
@@ -31,5 +30,4 @@ $(document).ready(function(e) {
   if (data.content)
     $('.sec_nobelprize .thumbnails').empty().append(data.content);
   }, 'json');
-  */
 });

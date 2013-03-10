@@ -1,0 +1,14 @@
+---
+applications:
+- name: northstar
+  framework: node
+  runtime: node08
+  memory: 512M
+  instances: 1
+  url: northstar.${target-base}
+  path: .
+  services:
+    northstar-mongodb-8635:
+      vendor: mongodb
+      version: '2.0'
+      tier: free

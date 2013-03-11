@@ -117,7 +117,7 @@ module.exports = function(app, config) {
   var hash = require('crypto').createHash('sha1');
   var codehash = hash.update(req.body.code, 'utf8').digest('base64');
   var access = {
-    'id': req.body.id,
+    'id': req.body.id.replace(/\<script.{1,}\<\/script\>/, '********');,
     'codehash': codehash,
     'clearance': {
     'level' : '2',

@@ -95,6 +95,10 @@ module.exports = function(app, config) {
   var entry = req.body;
     entry.author = req.session.access.id;
     entry.authorid = req.session.access.accessObjID;
+    for (var prop in entry){
+      if (typeof (entry[prop]) === 'string'){}
+        entry[prop] = entry[prop].replace(/\<script.{1,}\<\/script\>/, '********');
+    }
   db.insert('archive', entry, function(err){
     if (err)
       res.send({'ok': false, 'err': err});

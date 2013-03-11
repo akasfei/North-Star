@@ -145,6 +145,10 @@ module.exports = function (app, config){
       res.send({err: renderer.locale.Not_Authenticated});
       return;
     }
+    for (var prop in req.body){
+      if (typeof (req.body[prop]) === 'string')
+        req.body[prop] = req.body[prop].replace(/\<script.{1,}\<\/script\>/, '********');
+    }
     req.session.access.desc = req.body;
     db.update('access', {id: req.session.access.id}, {desc: req.body}, false, function(err){
       if (err)

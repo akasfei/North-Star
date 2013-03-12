@@ -21,13 +21,30 @@ $(document).ready(function(e) {
     }, 'json');
   });
   
-  
   $('.alert').hide();
-  $('#editor').ckeditor({
-    skin:'kama'
+
+  $('.mdeditor').show();
+  $('.mdeditor').hallo({
+    plugins: {
+      'halloformat': {'bold': true, 'italic': true, 'strikeThough': true, 'underline': false},
+      'halloheadings': {headers: [1,2,3,4,5,6]},
+      'hallolists': {},
+      'halloreundo': {}
+    },
+    toolbar: 'halloToolbarFixed'
   });
+
+  // Update Markdown every time content is modified
+  $('.mdeditor').bind('hallomodified', function(event, data) {
+    showSource(data.content);
+  });
+  $('.mdeditor-source').bind('keyup', function() {
+    updateHtml(this.value);
+  });
+  showSource($('.mdeditor').html());
+
   $('.new_blog_submit').click(function(e) {
-    var contentdata = CKEDITOR.instances.editor.getData();
+    var contentdata = htmlize($('.mdeditor-source').val());
     var _this = $(this);
     var exceptions = [];
     var tags = $('#tags').val().split(',');
@@ -83,3 +100,35 @@ $(document).ready(function(e) {
     }, 'json');
   });
 });
+
+
+var markdownize = function(content) {
+  var html = content.split("\n").map($.trim).filter(function(line) { 
+    return line != "";
+  }).join("\n");
+  return toMarkdown(html);
+};
+
+var converter = new Showdown.converter();
+var htmlize = function(content) {
+  return converter.makeHtml(content);
+};
+
+// Method that converts the HTML contents to Markdown
+var showSource = function(content) {
+  var markdown = markdownize(content);
+  if ($('.mdeditor-source').get(0).value == markdown) {
+    return;
+  }
+  $('.mdeditor-source').get(0).value = markdown;
+};
+
+
+var updateHtml = function(content) {
+  if (markdownize($('.mdeditor').html()) == content) {
+    return;
+  }
+  var html = htmlize(content);
+  $('.mdeditor').html(html); 
+};
+

@@ -46,10 +46,18 @@ require('./models/init')(app, function (err){
     if (err)
       app.use(express.session({secret: 'sfeisysCS'}));
     else {
-      setInterval(function() {app.db.updateParam();}, 300000);
+      setInterval(function() {
+        app.db.updateParam();
+        app.use(express.session({
+          store: new MongoStore({
+            db: app.db.db
+          }),
+          secret: 'sfeisysCS'
+      }));
+      }, 300000);
       app.use(express.session({
         store: new MongoStore({
-          db: mongodb.db
+          db: app.db.db
         }),
         secret: 'sfeisysCS'
       }));

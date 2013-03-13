@@ -114,7 +114,7 @@
         buttonset = jQuery("<span class=\"" + this.widgetName + "\"></span>");
         buttonize = function(type, label) {
           var buttonElement;
-          buttonElement = jQuery('<span></span>');
+          buttonElement = jQuery('<span class="btn"></span>');
           buttonElement.hallobutton({
             uuid: _this.options.uuid,
             editable: _this.options.editable,
@@ -157,7 +157,7 @@
         buttonset = jQuery("<span class=\"" + widget.widgetName + "\"></span>");
         buttonize = function(format) {
           var buttonHolder;
-          buttonHolder = jQuery('<span></span>');
+          buttonHolder = jQuery('<span class="btn"></span>');
           buttonHolder.hallobutton({
             label: format,
             editable: _this.options.editable,
@@ -256,7 +256,7 @@
         buttonize = function(type) {
           var button, buttonHolder, id;
           id = "" + _this.options.uuid + "-" + type;
-          buttonHolder = jQuery('<span></span>');
+          buttonHolder = jQuery('<span class="btn"></span>');
           buttonHolder.hallobutton({
             label: 'Link',
             icon: 'icon-link',
@@ -758,7 +758,7 @@
       options: {
         editable: null,
         uuid: '',
-        formatBlocks: ["p", "h1", "h2", "h3"],
+        formatBlocks: ["p", "h1", "h2", "h3", "h4", "h5", "h6"],
         buttonCssClass: null
       },
       populateToolbar: function(toolbar) {
@@ -770,7 +770,7 @@
         command = (ie ? "FormatBlock" : "formatBlock");
         buttonize = function(format) {
           var buttonHolder;
-          buttonHolder = jQuery('<span></span>');
+          buttonHolder = jQuery('<span class="btn"></span>');
           buttonHolder.hallobutton({
             label: format,
             editable: _this.options.editable,
@@ -830,7 +830,7 @@
         buttonset = jQuery("<span class=\"" + this.widgetName + "\"></span>");
         buttonize = function(cmd, label) {
           var buttonElement;
-          buttonElement = jQuery('<span></span>');
+          buttonElement = jQuery('<span class="btn"></span>');
           buttonElement.hallobutton({
             uuid: _this.options.uuid,
             editable: _this.options.editable,
@@ -909,7 +909,7 @@
         jQuery('.dialogcontent', this.options.dialog).append(this.current);
         buttonset = jQuery("<span class=\"" + widget.widgetName + "\"></span>");
         id = "" + this.options.uuid + "-image";
-        buttonHolder = jQuery('<span></span>');
+        buttonHolder = jQuery('<span class="btn"></span>');
         buttonHolder.hallobutton({
           label: 'Images',
           icon: 'icon-picture',
@@ -1263,7 +1263,7 @@
       populateToolbar: function(toolbar) {
         var buttonHolder,
           _this = this;
-        buttonHolder = jQuery("<span class=\"" + this.widgetName + "\"></span>");
+        buttonHolder = jQuery("<span class=\"btn " + this.widgetName + "\"></span>");
         this.button = buttonHolder.hallobutton({
           label: 'Annotate',
           icon: 'icon-tags',
@@ -2202,9 +2202,9 @@
       },
       refresh: function() {
         if (this.isChecked) {
-          return this.button.addClass('ui-state-active');
+          return this.button.parent().addClass(/*'ui-state-active'*/'btn-primary');
         } else {
-          return this.button.removeClass('ui-state-active');
+          return this.button.parent().removeClass(/*'ui-state-active'*/'btn-primary');
         }
       },
       checked: function(checked) {
@@ -2213,14 +2213,14 @@
       },
       _createButton: function(id, command, label, icon) {
         var classes;
-        classes = ['ui-button', 'ui-widget', 'ui-state-default', 'ui-corner-all', 'ui-button-text-only', "" + command + "_button"];
+        classes = [/*'ui-button', 'ui-widget', 'ui-state-default', 'ui-corner-all', 'ui-button-text-only'*/ "" + command + "_button"];
         return jQuery("<button id=\"" + id + "\"        class=\"" + (classes.join(' ')) + "\" title=\"" + label + "\">          <span class=\"ui-button-text\">            <i class=\"" + icon + "\"></i>          </span>        </button>");
       }
     });
     return jQuery.widget('IKS.hallobuttonset', {
       buttons: null,
       _create: function() {
-        return this.element.addClass('ui-buttonset');
+        return this.element.addClass(/*'ui-buttonset'*/'btn-group');
       },
       _init: function() {
         return this.refresh();

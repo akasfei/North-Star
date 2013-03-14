@@ -183,65 +183,15 @@ textarea{
   bottom: -100px;
   right: 10px;
 }
-.mdeditor{
-  margin-top:40px;
-}
-.mdeditor, .mdeditor-source {
-  min-height: 240px !important;
-  display: inline-block;
-  padding: 4px 6px;
+.editor-container {
   margin-bottom: 10px;
-  color: #555555;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  vertical-align: middle;
-
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear .2s, box-shadow linear .2s;
-  -moz-transition: border linear .2s, box-shadow linear .2s;
-  -o-transition: border linear .2s, box-shadow linear .2s;
-  transition: border linear .2s, box-shadow linear .2s;
-
 }
-.mdeditor:focus, .mdeditor-source:focus{
-
-  border-color: rgba(82, 168, 236, 0.8);
-  outline: 0;
-  outline: thin dotted \9;
-  /* IE6-9 */
-
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
-  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+.markditor-container{
+  margin-top: 10px;
+  margin-left: 0 !important;
 }
-
-.hallotoolbar{
-  padding-bottom: 8px;
-}
-
-.hallotoolbar button{
-  padding: 0;
-  background-color: transparent;
-  background-image: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  border-color: transparent;
-  cursor: pointer;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  color: #252525;
-}
-.hallotoolbar .btn-primary button{
-  color: #eee !important;
-}
-.hallotoolbar .btn,
-.hallotoolbar .btn-primary{
-  padding: 2px 8px;
+.markditor-content{
+  font-family: "Courier New", Courier, monospace;
+  min-height: 360px !important;
+  width: 100%;
 }

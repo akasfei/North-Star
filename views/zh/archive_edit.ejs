@@ -5,6 +5,9 @@
     
     <article>
       <header>
+        <div class="btn-group pull-right" data-toggle="buttons-radio">
+          <a href="javascript:;" class="btn btn-mini active" id="editor-toggle-html"> HTML </a><a href="javascript:;" class="btn btn-mini" id="editor-toggle-md"> Markdown </a>
+        </div>
         <input class="input-xxlarge" type="text" name="entrytitle" id="entrytitle" placeholder="标题" value="<%= entrytitle %>"/>
 				<div class="accesslevel_div input-append">
 					<input class="span2" type="text" name="accesslevel" id="accesslevel" placeholder="访问权限等级" value="<%= accesslevel %>"/>
@@ -26,8 +29,16 @@
 				</div>
 				<input class="input-block-level" type="text" name="abstract" id="abstract" placeholder="摘要" value="<%= abstract %>"/>
       </header>
-            <h4 class="loading_info"><img src="/img/squareajax_30.gif" alt="loading">正在载入编辑器..请稍候....</h4>
-			<textarea id="editor" name="content"><%- content %></textarea>
+      <div class="row-fluid editor-container">
+        <div class="span6 offset3 loading_info">
+          <h4><img src="/img/squareajax_30.gif" alt="loading">正在载入编辑器，请稍候…</h4>
+        </div>
+        <div class="ckeditor-container span12">
+          <textarea id="editor" name="content" style="display:none;"><%- content %></textarea>
+        </div>
+        <div class="span12" id="editor-md" style="display:none">
+        </div>
+      </div>
 			<div class="alert alert-block alert-error fade in">
 			<a class="close" data-dismiss="alert" href="#">&times;</a>
 				<h4 id="alert_head"></h4>
@@ -43,6 +54,10 @@
     </article>
   </section>
 	<script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
-	<script type="text/javascript" src="/js/ckeditor/adapters/jquery.js"></script>
-	<script type="text/javascript" src="/js/archive_edit.js"></script>
-    <script type="text/javascript" src="/js/filter.js"></script>
+  <script type="text/javascript" src="/js/ckeditor/adapters/jquery.js"></script>
+  <script type="text/javascript" src="/js/rangyinputs-jquery.js"></script>
+  <script type="text/javascript" src="/js/markditor.js"></script>
+  <script type="text/javascript" src="/js/showdown.js"></script>
+  <script type="text/javascript" src="/js/to-markdown.js"></script>
+  <script type="text/javascript" src="/js/archive_edit.js"></script>
+  <script type="text/javascript" src="/js/filter.js"></script>

@@ -23,28 +23,36 @@ $(document).ready(function(e) {
   
   $('.alert').hide();
 
-  $('.mdeditor').show();
-  $('.mdeditor').hallo({
-    plugins: {
-      'halloformat': {'bold': true, 'italic': true, 'strikeThough': true, 'underline': false},
-      'halloheadings': {headers: [1,2,3,4,5,6]},
-      'hallolists': {},
-      'halloreundo': {}
-    },
-    toolbar: 'halloToolbarFixed'
+  $('#editor').ckeditor({
+
+  });
+  $('#editor-md').markditor();
+  $('#editor-toggle-md').click(function (e){
+    if ($(this).hasClass('active'))
+      return;
+    $(this).button('toggle');
+    $('#editor-md').show();
+    var md = toMD(CKEDITOR.instances.editor.getData() );
+    $('.markditor-content').val(md);
+    $('.ckeditor-container').hide();
   });
 
-  // Update Markdown every time content is modified
-  $('.mdeditor').bind('hallomodified', function(event, data) {
-    showSource(data.content);
+  $('#editor-toggle-html').click(function (e){
+    if ($(this).hasClass('active'))
+      return;
+    $(this).button('toggle');
+    $('.ckeditor-container').show();
+    CKEDITOR.instances.editor.setData(toHTML($('.markditor-content').val() ) );
+    $('#editor-md').hide();
   });
-  $('.mdeditor-source').bind('keyup', function() {
-    updateHtml(this.value);
-  });
-  showSource($('.mdeditor').html());
+
 
   $('.new_blog_submit').click(function(e) {
-    var contentdata = htmlize($('.mdeditor-source').val());
+    var contentdata;
+    if ($('#editor').hasClass('active'))
+      contentdata = CKEDITOR.instances.editor.getData();
+    else
+      contentdata = toHTML($('.markditor-content').val());
     var _this = $(this);
     var exceptions = [];
     var tags = $('#tags').val().split(',');
@@ -101,34 +109,14 @@ $(document).ready(function(e) {
   });
 });
 
-
-var markdownize = function(content) {
-  var html = content.split("\n").map($.trim).filter(function(line) { 
-    return line != "";
-  }).join("\n");
-  return toMarkdown(html);
-};
-
 var converter = new Showdown.converter();
-var htmlize = function(content) {
-  return converter.makeHtml(content);
-};
+var toHTML = function(markdown) {
+  return converter.makeHtml(markdown).replace(/id\=\".+\"/, '');
+}
 
-// Method that converts the HTML contents to Markdown
-var showSource = function(content) {
-  var markdown = markdownize(content);
-  if ($('.mdeditor-source').get(0).value == markdown) {
-    return;
-  }
-  $('.mdeditor-source').get(0).value = markdown;
-};
-
-
-var updateHtml = function(content) {
-  if (markdownize($('.mdeditor').html()) == content) {
-    return;
-  }
-  var html = htmlize(content);
-  $('.mdeditor').html(html); 
-};
-
+var toMD = function(content){
+  var html = content.split("\n").map($.trim).filter(function(line) { 
+      return line != "";
+    }).join("\n");
+    return toMarkdown(html);
+}

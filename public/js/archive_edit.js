@@ -23,53 +23,77 @@ $(document).ready(function(e) {
   
   $('.alert').hide();
   $('#editor').ckeditor({
-    skin:'kama'
+
   });
+  $('#editor-md').markditor();
+  $('#editor-toggle-md').click(function (e){
+    if ($(this).hasClass('active'))
+      return;
+    $(this).button('toggle');
+    $('#editor-md').show();
+    var md = toMD(CKEDITOR.instances.editor.getData() );
+    $('.markditor-content').val(md);
+    $('.ckeditor-container').hide();
+  });
+
+  $('#editor-toggle-html').click(function (e){
+    if ($(this).hasClass('active'))
+      return;
+    $(this).button('toggle');
+    $('.ckeditor-container').show();
+    CKEDITOR.instances.editor.setData(toHTML($('.markditor-content').val() ) );
+    $('#editor-md').hide();
+  });
+
   $('.submit').click(function(e) {
-    var contentdata = CKEDITOR.instances.editor.getData();
-  var _this = $(this);
-  var exceptions = [];
-  var tags = $('#tags').val().split(',');
-  var exceptions_span = $('.exception');
-  for (var i=0; i < exceptions_span.length; i++)
-    exceptions.push(exceptions_span[i].innerText);
-    var postdata = {
-      'entrytitle' : $('#entrytitle').val(),
-      'abstract' : $('#abstract').val(),
-      'content' : contentdata,
-      'accesslevel' : parseInt($('#accesslevel').val()),
-    'exceptions' : exceptions,
-    'language' : _this.attr('data-lang'),
-    'tags': tags,
-      'time' : new Date()
-    }
-    $('.alert').alert();
-    if (postdata.entrytitle.length < 4) {
-      $('.alert').show();
-      $('#alert_head').text('This article is not ready for posting.');
-      $('#alert_info').text('The title is too short.');
-      return;
-    }
-    if (postdata.abstract.length< 8) {
-      $('.alert').show();
-      $('#alert_head').text('This article is not ready for posting.');
-      $('#alert_info').text('The abstract is too short.');
-      return;
-    }
-    if (postdata.content.length < 16) {
-      $('.alert').show();
-      $('#alert_head').text('This article is not ready for posting.');
-      $('#alert_info').text('The content is too short.');
-      return;
-    }
-    if (postdata.accesslevel > 10 || postdata.accesslevel < 0 || isNaN(postdata.accesslevel)) {
-      $('.alert').show();
-      $('#alert_head').text('This article is not ready for posting.');
-      $('#alert_info').text('Invalid access level.');
-      return;
-    }
-  var $toggle = $('.submit').parent().parent().siblings('.dropdown-toggle');
-  $toggle.button('loading');
+    var contentdata;
+    if ($('#editor').hasClass('active'))
+      contentdata = CKEDITOR.instances.editor.getData();
+    else
+      contentdata = toHTML($('.markditor-content').val());
+    var _this = $(this);
+    var exceptions = [];
+    var tags = $('#tags').val().split(',');
+    var exceptions_span = $('.exception');
+    for (var i=0; i < exceptions_span.length; i++)
+      exceptions.push(exceptions_span[i].innerText);
+      var postdata = {
+        'entrytitle' : $('#entrytitle').val(),
+        'abstract' : $('#abstract').val(),
+        'content' : contentdata,
+        'accesslevel' : parseInt($('#accesslevel').val()),
+      'exceptions' : exceptions,
+      'language' : _this.attr('data-lang'),
+      'tags': tags,
+        'time' : new Date()
+      }
+      $('.alert').alert();
+      if (postdata.entrytitle.length < 4) {
+        $('.alert').show();
+        $('#alert_head').text('This article is not ready for posting.');
+        $('#alert_info').text('The title is too short.');
+        return;
+      }
+      if (postdata.abstract.length< 8) {
+        $('.alert').show();
+        $('#alert_head').text('This article is not ready for posting.');
+        $('#alert_info').text('The abstract is too short.');
+        return;
+      }
+      if (postdata.content.length < 16) {
+        $('.alert').show();
+        $('#alert_head').text('This article is not ready for posting.');
+        $('#alert_info').text('The content is too short.');
+        return;
+      }
+      if (postdata.accesslevel > 10 || postdata.accesslevel < 0 || isNaN(postdata.accesslevel)) {
+        $('.alert').show();
+        $('#alert_head').text('This article is not ready for posting.');
+        $('#alert_info').text('Invalid access level.');
+        return;
+      }
+    var $toggle = $('.submit').parent().parent().siblings('.dropdown-toggle');
+    $toggle.button('loading');
     $.post('/idn/archive/edit',postdata,function(data, stats) {
       $toggle.button('reset');
     if (data.ok){
@@ -82,3 +106,15 @@ $(document).ready(function(e) {
     }, 'json');
   });
 });
+
+var converter = new Showdown.converter();
+var toHTML = function(markdown) {
+  return converter.makeHtml(markdown).replace(/id\=\".*\"/, '');
+}
+
+var toMD = function(content){
+  var html = content.split("\n").map($.trim).filter(function(line) { 
+      return line != "";
+    }).join("\n");
+    return toMarkdown(html);
+}

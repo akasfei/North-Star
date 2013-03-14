@@ -183,3 +183,15 @@ textarea{
   bottom: -100px;
   right: 10px;
 }
+.editor-container {
+  margin-bottom: 10px;
+}
+.markditor-container{
+  margin-top: 10px;
+  margin-left: 0 !important;
+}
+.markditor-content{
+  font-family: "Courier New", Courier, monospace;
+  min-height: 360px !important;
+  width: 100%;
+}

@@ -5,7 +5,10 @@
     
     <article>
       <header>
-        <input class="input-xxlarge" type="text" name="entrytitle" id="entrytitle" placeholder="Enter blog title here"/>
+        <div class="btn-group pull-right" data-toggle="buttons-radio">
+          <a href="javascript:;" class="btn btn-mini active" id="editor-toggle-html"> HTML </a><a href="javascript:;" class="btn btn-mini" id="editor-toggle-md"> Markdown </a>
+        </div>
+        <input class="input-xxlarge" type="text" name="entrytitle" id="entrytitle" placeholder="Enter blog title here"/><br>
 				<div class="accesslevel_div input-append">
 					<input class="span2" type="text" name="accesslevel" id="accesslevel" placeholder="Access level"/>
 					<div class="btn-group">
@@ -26,8 +29,16 @@
 				</div>
 		<input class="input-block-level" type="text" name="abstract" id="abstract" placeholder="Enter blog abstract here"/>
       </header>
-            <h4 class="loading_info"><img src="/img/squareajax_30.gif" alt="loading">Loading editor, please standby....</h4>
-			<textarea id="editor" name="content"><p>Enter your blog content here...</p></textarea>
+      <div class="row-fluid editor-container">
+        <div class="span6 offset3 loading_info">
+          <h4><img src="/img/squareajax_30.gif" alt="loading">Loading editor, please standby....</h4>
+        </div>
+        <div class="ckeditor-container span12">
+  			  <textarea id="editor" name="content" style="display:none;"><h1>Hello Editor!</h1><p>Enter your blog content here...</p></textarea>
+        </div>
+        <div class="span12" id="editor-md" style="display:none">
+        </div>
+      </div>
 			<div class="alert alert-block alert-error fade in">
 			<a class="close" data-dismiss="alert" href="#">&times;</a>
 				<h4 id="alert_head"></h4>
@@ -44,5 +55,9 @@
   </section>
 	<script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="/js/ckeditor/adapters/jquery.js"></script>
-	<script type="text/javascript" src="/js/archive_new.js"></script>
-    <script type="text/javascript" src="/js/filter.js"></script>
+  <script type="text/javascript" src="/js/rangyinputs-jquery.js"></script>
+  <script type="text/javascript" src="/js/markditor.js"></script>
+  <script type="text/javascript" src="/js/showdown.js"></script>
+  <script type="text/javascript" src="/js/to-markdown.js"></script>
+  <script type="text/javascript" src="/js/archive_new.js"></script>
+  <script type="text/javascript" src="/js/filter.js"></script>

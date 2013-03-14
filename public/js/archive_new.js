@@ -21,13 +21,38 @@ $(document).ready(function(e) {
     }, 'json');
   });
   
-  
   $('.alert').hide();
+
   $('#editor').ckeditor({
-    skin:'kama'
+
   });
+  $('#editor-md').markditor();
+  $('#editor-toggle-md').click(function (e){
+    if ($(this).hasClass('active'))
+      return;
+    $(this).button('toggle');
+    $('#editor-md').show();
+    var md = toMD(CKEDITOR.instances.editor.getData() );
+    $('.markditor-content').val(md);
+    $('.ckeditor-container').hide();
+  });
+
+  $('#editor-toggle-html').click(function (e){
+    if ($(this).hasClass('active'))
+      return;
+    $(this).button('toggle');
+    $('.ckeditor-container').show();
+    CKEDITOR.instances.editor.setData(toHTML($('.markditor-content').val() ) );
+    $('#editor-md').hide();
+  });
+
+
   $('.new_blog_submit').click(function(e) {
-    var contentdata = CKEDITOR.instances.editor.getData();
+    var contentdata;
+    if ($('#editor').hasClass('active'))
+      contentdata = CKEDITOR.instances.editor.getData();
+    else
+      contentdata = toHTML($('.markditor-content').val());
     var _this = $(this);
     var exceptions = [];
     var tags = $('#tags').val().split(',');
@@ -83,3 +108,15 @@ $(document).ready(function(e) {
     }, 'json');
   });
 });
+
+var converter = new Showdown.converter();
+var toHTML = function(markdown) {
+  return converter.makeHtml(markdown).replace(/id\=\".+\"/, '');
+}
+
+var toMD = function(content){
+  var html = content.split("\n").map($.trim).filter(function(line) { 
+      return line != "";
+    }).join("\n");
+    return toMarkdown(html);
+}

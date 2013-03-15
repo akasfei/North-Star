@@ -195,3 +195,10 @@ textarea{
   min-height: 360px !important;
   width: 100%;
 }
+.markditor-help{
+  margin-top: 6px;
+  width: 100%;
+}
+.markditor-help p{
+  font-size: 12px;
+}

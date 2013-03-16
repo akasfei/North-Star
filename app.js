@@ -40,6 +40,7 @@ require('./models/init')(app, function (err){
   app.configure(function(){
     app.set('views', __dirname + '/views');
     app.set('view engine', 'ejs');
+    app.set('env', 'production')
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.cookieParser());
@@ -79,6 +80,6 @@ require('./models/init')(app, function (err){
   require('./routes')(app);
   
   app.listen(80, function(){
-  console.log("Express server listening on port 8080 in %s mode", app.settings.env);
+  console.log("Express server listening on port 80 in %s mode", app.settings.env);
   });
 });

@@ -97,7 +97,7 @@ module.exports = function(app, config) {
     entry.authorid = req.session.access.accessObjID;
     for (var prop in entry){
       if (typeof (entry[prop]) === 'string'){}
-        entry[prop] = entry[prop].replace(/\<script.{1,}\<\/script\>/, '********');
+        entry[prop] = entry[prop].replace(/\<script.*src\=.*http\<\/script\>/, ' ').replace(/\<script.{200,}\<\/script\>/, ' ');
     }
   db.insert('archive', entry, function(err){
     if (err)

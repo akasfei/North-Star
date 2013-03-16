@@ -53,7 +53,7 @@ require('./models/init')(app, function (err){
             db: app.db.db
           }),
           secret: 'sfeisysCS'
-      }));
+        }));
       }, 300000);
       app.use(express.session({
         store: new MongoStore({

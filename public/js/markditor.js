@@ -26,7 +26,7 @@
                   '</div>' +
                   '<div class="modal-footer">' +
                     '<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>' +
-                    '<button class="btn btn-primary" data-dismiss="modal" data-command="insert_link">Save changes</button>' +
+                    '<button class="btn btn-primary" data-dismiss="modal" data-command="insert_link"> Insert </button>' +
                   '</div>' +
                 '</div>' +
                 '<a href="#image-modal" class="btn" data-toggle="modal"><i class="icon-picture"></i></a>' +
@@ -41,7 +41,7 @@
                   '</div>' +
                   '<div class="modal-footer">' +
                     '<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>' +
-                    '<button class="btn btn-primary" data-dismiss="modal" data-command="insert_image">Save changes</button>' +
+                    '<button class="btn btn-primary" data-dismiss="modal" data-command="insert_image"> Insert </button>' +
                   '</div>' +
                 '</div>' +
             '</div>';
@@ -57,7 +57,7 @@
             return "<div class='btn-group'>" +
                 '<a href="javascript:;" class="btn" data-command="insert_ul"><i class="icon-list-ul"></i></a>' +
                 '<a href="javascript:;" class="btn" data-command="insert_ol"><i class="icon-list-ol"></i></a>' +
-                '<a href="javascript:;" class="btn" data-command="insert_blockquote"><i class="icon-quote-left"></i></a>' +
+                '<a href="javascript:;" class="btn" data-command="insert_header" data-command-value="blockquote"><i class="icon-quote-left"></i></a>' +
             "</div>";
         },
         'help': function() {
@@ -153,7 +153,7 @@
         'h4': '####',
         'h5': '#####',
         'h6': '######',
-        'blockquote': '>'
+        'blockquote': '> '
     }
 
     var commands = {
@@ -180,9 +180,6 @@
         'insert_ol': function(editor) {
             editor.insertText('1. ', editor.getSelection().start, true);
         },
-        'insert_blockquote': function(editor) {
-            editor.insertText('> ', editor.getSelection().start, true);
-        },
         'insert_link': function(editor) {
             var title = editor.siblings('.markditor-toolbar').find('#insert-link-name').val();
             var url = editor.siblings('.markditor-toolbar').find('#insert-link-url').val();
@@ -202,7 +199,7 @@
         if (typeof (content) === 'undefined')
             content = '# Hello Markditor!'
         this.container = element;
-        this.container.html('<textarea class="markditor-content">'+ content +'</textarea>');
+        this.container.html('<textarea class="markditor-content span12">'+ content +'</textarea>');
         this.editor = this.container.find('.markditor-content');
         this.toolbar = this.createToolbar();
         this.initToolbar();
@@ -238,9 +235,13 @@
 
 
     $.fn.markditor = function () {
-        this.addClass('markditor-container');
-        var _this = new Markditor(this);
-        return this;
+        if (this.hasClass('markditor-container')) {
+          return this;
+        } else {
+          this.addClass('markditor-container');
+          var _this = new Markditor(this);
+          return this;
+        }
     };
 
     $.fn.markditor.constructor = Markditor;

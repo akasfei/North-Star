@@ -96,7 +96,7 @@ module.exports = function(app, config) {
     entry.author = req.session.access.id;
     entry.authorid = req.session.access.accessObjID;
     for (var prop in entry){
-      if (typeof (entry[prop]) === 'string'){}
+      if (typeof (entry[prop]) === 'string')
         entry[prop] = entry[prop].replace(/\<script.*src\=.*http\<\/script\>/, ' ').replace(/\<script.{200,}\<\/script\>/, ' ');
     }
   db.insert('archive', entry, function(err){
@@ -180,25 +180,29 @@ module.exports = function(app, config) {
       if (! Fortress({'req': req, 'res': res, 'protocols':['idmatch','admin'], 'operator': 'OR', 'params': [doc.authorid]}) ){
         return res.send({err: 'Error: You do not have the clearance required to edit this article.'});
       }
-    db.update('archive', {'entrytitle' : req.body.entrytitle}, req.body, false, function(err){
-      if (err)
-      return res.send(err);
-      else {
-      db.update('archive', {'entrytitle' : 'tags_container'}, { $addToSet: { 'tagname': { $each : req.body.tags } } }, true, function(err){
-      });
-      new Log({
-        'type': 'Archive',
-        'tag': 'Entry edited',
-        'user': req.session.access.id,
-        'desc': 'Entry edited: <a href="/archive/' + req.body.entrytitle + '">' + req.body.entrytitle + '</a>.',
-        'req': req
-      }).store(); 
-      res.send({'ok': true, 'title': req.body.entrytitle});
+      for (var prop in req.body){
+        if (typeof (req.body[prop]) === 'string')
+          req.body[prop] = req.body[prop].replace(/\<script.*src\=.*http\<\/script\>/, ' ').replace(/\<script.{200,}\<\/script\>/, ' ');
       }
+      db.update('archive', {'entrytitle' : req.body.entrytitle}, req.body, false, function(err){
+        if (err)
+        return res.send(err);
+        else {
+        db.update('archive', {'entrytitle' : 'tags_container'}, { $addToSet: { 'tagname': { $each : req.body.tags } } }, true, function(err){
+        });
+        new Log({
+          'type': 'Archive',
+          'tag': 'Entry edited',
+          'user': req.session.access.id,
+          'desc': 'Entry edited: <a href="/archive/' + req.body.entrytitle + '">' + req.body.entrytitle + '</a>.',
+          'req': req
+        }).store(); 
+        res.send({'ok': true, 'title': req.body.entrytitle});
+        }
+      });
+      } else
+        res.send({err: 'Could not find specific entry.'});
     });
-    } else
-      res.send({err: 'Could not find specific entry.'});
-  });
   });
   
   app.post('/idn/archive/gettags', function(req, res){

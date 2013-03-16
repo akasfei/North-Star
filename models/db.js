@@ -175,7 +175,6 @@ var remove = function (collection, query, callback){
 }
 
 var updateParam = function() {
-  console.log('Updating database parameters... @' + new Date());
   var params = {};
   if(process.env.VCAP_SERVICES){
     var env = JSON.parse(process.env.VCAP_SERVICES);
@@ -192,8 +191,13 @@ var updateParam = function() {
     };
   }
   for (prop in params){
-    this[prop] = params[prop];
+    if (this[prop] != params[prop]){
+      this[prop] = params[prop];
+      var changed = true;
+    }
   }
+  if (changed)
+    console.log('Database parameter updated. [' + new Date() + ']');
 }
 
 function Mongo() {

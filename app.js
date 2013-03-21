@@ -2,7 +2,7 @@
 /**
  * Module dependencies.
  */
- 
+console.log('[%s]\nSystem started. Initializing system parameters.', new Date()) 
 var Db = require('./models/db');
 var mongodb = new Db();
 var express = require('express');
@@ -35,13 +35,13 @@ var parseHtml = function(htmlName) { // seting up html layout models
 //parseHtml('layout');
 //parseHtml('idnlayout');
 
-
+console.log('Initializing System core.')
 require('./models/init')(app, function (err){
   app.configure(function(){
     app.set('views', __dirname + '/views');
     app.set('view engine', 'ejs');
     app.set('env', 'production')
-    app.use(express.logger('dev'));
+    //app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.cookieParser());
     if (err)
@@ -80,6 +80,6 @@ require('./models/init')(app, function (err){
   require('./routes')(app);
   
   app.listen(80, function(){
-  console.log("Express server listening on port 80 in %s mode", app.settings.env);
+    console.log("SFEI Systems operating on port 80 in %s mode. [%s]", app.settings.env, new Date());
   });
 });

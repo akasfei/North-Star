@@ -393,19 +393,20 @@ var render_profile_article = function(access, req){
 var setLang = function(lang) {
   this.lang = lang;  
   switch (lang){
-  case 'en':
-  {
-    this.locale = require('./localization').en;
-    this.lang = 'en';
-    break;
-  }
   case 'zh':
-  default:
   {
     this.locale = require('./localization').zh;
     this.lang = 'zh';
     break;
   }
+  case 'en':
+  default:
+  {
+    this.locale = require('./localization').en;
+    this.lang = 'en';
+    break;
+  }
+
   }
 }
 

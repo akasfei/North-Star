@@ -120,29 +120,54 @@ $(document).ready(function(e) {
   });
   
   /* following and unfollowing */
-  $('.blogsArchive, .profile-articles, .blogPreview, .profile-header').on('click', '.profile-follow-btn', function(e){
-  var $this = $(this);
-  if ($this.hasClass('disabled'))
-    return;
-  var postdata = {'followID': $this.parent().siblings('.profile-head').find('.profile-id h4').text()}
-  $.post('/idn/contact/follow', postdata, function(data){
-    if (data.err)
-      alert(data.err);
-    if (data.ok)
-      $this.addClass('disabled');
-  }, 'json');
+  $('.blogsArchive, .profile-articles, .blogPreview').on('click', '.profile-follow-btn', function(e){
+    var $this = $(this);
+    if ($this.hasClass('disabled'))
+      return;
+    var postdata = {'followID': $this.parent().siblings('.profile-head').find('.profile-id h4').text()}
+    $.post('/idn/contact/follow', postdata, function(data){
+      if (data.err)
+        alert(data.err);
+      if (data.ok)
+        $this.addClass('disabled');
+    }, 'json');
   });
-  $('.blogsArchive, .profile-articles, .blogPreview, .profile-header').on('click', '.profile-unfollow-btn', function(e){
-  var $this = $(this);
-  if ($this.hasClass('disabled'))
-    return;
-  var postdata = {'followID': $this.parent().siblings('.profile-head').find('.profile-id h4').text()}
-  $.post('/idn/contact/unfollow', postdata, function(data){
-    if (data.err)
-      alert(data.err);
-    if (data.ok)
-      $this.addClass('disabled');
-  }, 'json');
+  $('.blogsArchive, .profile-articles, .blogPreview').on('click', '.profile-unfollow-btn', function(e){
+    var $this = $(this);
+    if ($this.hasClass('disabled'))
+      return;
+    var postdata = {'followID': $this.parent().siblings('.profile-head').find('.profile-id h4').text()}
+    $.post('/idn/contact/unfollow', postdata, function(data){
+      if (data.err)
+        alert(data.err);
+      if (data.ok)
+        $this.addClass('disabled');
+    }, 'json');
+  });
+
+  $('.profile-header').on('click', '.profile-follow-btn', function(e){
+    var $this = $(this);
+    if ($this.hasClass('disabled'))
+      return;
+    var postdata = {'followID': $this.parent().siblings('h1').text()}
+    $.post('/idn/contact/follow', postdata, function(data){
+      if (data.err)
+        alert(data.err);
+      if (data.ok)
+        $this.addClass('disabled');
+    }, 'json');
+  });
+  $('.profile-header').on('click', '.profile-unfollow-btn', function(e){
+    var $this = $(this);
+    if ($this.hasClass('disabled'))
+      return;
+    var postdata = {'followID': $this.parent().siblings('h1').text()}
+    $.post('/idn/contact/unfollow', postdata, function(data){
+      if (data.err)
+        alert(data.err);
+      if (data.ok)
+        $this.addClass('disabled');
+    }, 'json');
   });
 });
 

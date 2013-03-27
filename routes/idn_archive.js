@@ -160,7 +160,8 @@ module.exports = function(app, config) {
                   access: access_li,
                   nav_archive: renderer.extend(true, req.session.access.clearance.admin)
                 });
-            } else {
+            } 
+            else {
               res.render(renderer.getView() + '404', {
                 title: 'archive',
                 layout: renderer.getView() +'idnlayout',
@@ -226,7 +227,7 @@ module.exports = function(app, config) {
       if (! Fortress({'req': req, 'res': res, 'protocols':['idmatch','admin'], 'operator': 'OR', 'params': [doc.authorid]}) ){
         return res.send({err: 'Error: You do not have the clearance required to edit this article.'});
       }
-    db.remove('archive', {'_id' : new db.ObjectID(req.body.objid)}, function(err){
+    db.remove('archive', {'_id' : new db.ObjectID(req.body.objid)},function(err){
       if (err)
       return res.send(err);
       else {
@@ -244,4 +245,16 @@ module.exports = function(app, config) {
       res.send({err: 'Could not find specific entry.'});
   });
   });
+  app.post('/idn/archive/rmtags', function(req,res){
+  db.update('archive',{'entrytitle' : 'tags_container'},{$pull : {'tagname' : req.body.tagname}},true,function(err){
+    if (err)
+        return res.send(err);
+    if (! Fortress({'req': req, 'res': res, 'protocols':['admin']}) )
+    {
+    res.send({err: 'Error: Administrator priviledges required.'});
+    return;
+    }
+
+  });
+  })
 }

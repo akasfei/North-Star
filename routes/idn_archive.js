@@ -246,14 +246,15 @@ module.exports = function(app, config) {
   });
   });
   app.post('/idn/archive/rmtags', function(req,res){
-  db.update('archive',{'entrytitle' : 'tags_container'},{$pull : {'tagname' : req.body.tagname}},true,function(err){
-    if (err)
-        return res.send(err);
-    if (! Fortress({'req': req, 'res': res, 'protocols':['admin']}) )
+        if (! Fortress({'req': req, 'res': res, 'protocols':['admin']}) )
     {
     res.send({err: 'Error: Administrator priviledges required.'});
     return;
     }
+  db.update('archive',{'entrytitle' : 'tags_container'},{$pull : {'tagname' : req.body.tagname}},true,function(err){
+    if (err)
+        return res.send(err);
+
 
   });
   })

@@ -225,3 +225,60 @@ textarea{
 .modal.fade.in {
   top: 280px;
 }
+
+.ani-40x {
+  /*font-family: "Courier New", Courier, Monospace;*/
+}
+.ani-40x:after{
+  content: '';
+  display: inline-block;
+  margin-left: 4px;
+  width: 40px;
+  height: 20px;
+  border-bottom: 8px solid #333;
+  opacity: 1;
+  -webkit-animation: underscore-flash 2s infinite;
+  -moz-animation: underscore-flash 2s infinite;
+  -ms-animation: underscore-flash 2s infinite;
+  -o-animation: underscore-flash 2s infinite;
+  animation: underscore-flash 2s infinite;
+}
+@-webkit-keyframes underscore-flash {
+  0% { opacity:1; }
+  24% { opacity:1; }
+  26% { opacity:0; }
+  70% { opacity:0; }
+  95% { opacity:1; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes underscore-flash {
+  0% { opacity:1; }
+  24% { opacity:1; }
+  26% { opacity:0; }
+  70% { opacity:0; }
+  95% { opacity:1; }
+  100% { opacity: 1; }
+}
+@-ms-keyframes underscore-flash {
+  0% { opacity:1; }
+  24% { opacity:1; }
+  26% { opacity:0; }
+  70% { opacity:0; }
+  95% { opacity:1; }
+  100% { opacity: 1; }
+}
+@-o-keyframes underscore-flash {
+  0% { opacity:1; }
+  24% { opacity:1; }
+  26% { opacity:0; }
+  70% { opacity:0; }
+  95% { opacity:1; }
+  100% { opacity: 1; }
+@keyframes underscore-flash {
+  0% { opacity:1; }
+  24% { opacity:1; }
+  26% { opacity:0; }
+  70% { opacity:0; }
+  95% { opacity:1; }
+  100% { opacity: 1; }
+}

@@ -2,6 +2,8 @@
 
 North Star is an online blog website built with Node.js and Mongodb.
 
+[![Build Status](https://secure.travis-ci.org/akasfei/North-Star.png)](http://travis-ci.org/akasfei/North-Star)
+
 ## Getting Started
 
 ### Get North Star

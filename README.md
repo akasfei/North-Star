@@ -44,6 +44,12 @@ Available on [GitHub Wiki](https://github.com/akasfei/North-Star/wiki)
 
 Only several pages available at this moment. More coming up!
 
+## Roadmap
+
+I'm planning to convert this blog website into an API server that will provide service to mulitple platforms. This update will be completed before SFEI Systems v4. In version 4, I will add many new features to the website, but then this website will look more like a web application than a traditional website.
+
+Detailed roadmap of SFEI Systems, from 3.3.2 to 4.5.0, is availalbe on [GitHub Wiki](https://github.com/akasfei/North-Star/wiki/Roadmap)
+
 ## License
 
 >   Copyright (c) 2009-2013 SFEI

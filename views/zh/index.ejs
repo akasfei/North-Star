@@ -1,46 +1,17 @@
-  <section class="blogsArchive">
-    <div class="row-fluid">
-      <p><span class="label label-info">博客档案库</span><a href="/archive" class="btn btn-mini pull-right">更多..</a></p>
-    </div>
-    <div class="row-fluid">
-      <ul class="thumbnails">
-        <%- archive_content %>
-      </ul>
-    </div>
-  </section>
-  <section class="blogsArchive sec_astronomy">
-    <div class="row-fluid">
-      <p><span class="label label-info">天文学</span><a href="/archive?f=天文学" class="btn btn-mini pull-right">更多..</a></p>
-      <ul class="thumbnails">
-        <li><img src="/img/squareajax_30.gif" alt="loading" /></li>
-      </ul>
-    </div>
-  </section>
-  
-  <section class="blogsArchive sec_psychology">
-    <div class="row-fluid">
-      <p><span class="label label-info">心理学</span><a href="/archive?f=心理学" class="btn btn-mini pull-right">更多..</a></p>
-      <ul class="thumbnails">
-        <li><img src="/img/squareajax_30.gif" alt="loading" /></li>
-      </ul>
-    </div>
-  </section>
-  
-  <section class="blogsArchive sec_internetsecurity">
-    <div class="row-fluid">
-      <p><span class="label label-info">网络安全</span><a href="/archive?f=网络安全" class="btn btn-mini pull-right">更多..</a></p>
-      <ul class="thumbnails">
-        <li><img src="/img/squareajax_30.gif" alt="loading" /></li>
-      </ul>
-    </div>
-  </section>
-  
-  <section class="blogsArchive sec_nobelprize">
-    <div class="row-fluid">
-      <p><span class="label label-info">诺贝尔奖</span><a href="/archive?f=诺贝尔奖" class="btn btn-mini pull-right">更多..</a></p>
-      <ul class="thumbnails">
-        <li><img src="/img/squareajax_30.gif" alt="loading" /></li>
-      </ul>
-    </div>
-  </section>
-  <script type="text/javascript" src="/js/fetcher.js"></script>
+<section class="blogsArchive auto-fetch" data-tags="Featured">
+  <div class="row-fluid">
+    <p><span class="label label-info">推荐</span><a href="/archive?f=Featured" class="btn btn-mini pull-right">更多..</a></p>
+    <ul class="thumbnails">
+      <li><img src="/img/squareajax_30.gif" alt="loading" /></li>
+    </ul>
+  </div>
+</section>
+<section class="blogsArchive auto-fetch" data-tags="all">
+  <div class="row-fluid">
+    <p><span class="label label-info">博客档案库</span><a href="/archive" class="btn btn-mini pull-right">更多..</a></p>
+    <ul class="thumbnails">
+      <li><img src="/img/squareajax_30.gif" alt="loading" /></li>
+    </ul>
+  </div>
+</section>
+<script type="text/javascript" src="/js/fetcher.js"></script>

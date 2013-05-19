@@ -253,6 +253,7 @@ module.exports = function(app, config) {
     db.update('archive',{'entrytitle' : 'tags_container'},{$pull : {'tagname' : req.body.tagname}},true,function(err){
       if (err)
         return res.send(err);
+      return res.send({ok: true});
     });
   });
 }

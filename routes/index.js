@@ -102,10 +102,13 @@ module.exports = function (app){
     var access_li = (req.session.access == null) ? 
         renderer.nav_dropdown_li('NA',-1) : 
         renderer.nav_dropdown_li(req.session.access.id,req.session.access.clearance.level);
+    var info = {
+      mongourl: db.generate_mongo_url(),
+    }
     if (req.session.access && req.session.access.clearance.admin){
       res.render('admin', { 
           title: '',
-      mongourl: db.generate_mongo_url(),
+          info: info,
           layout: renderer.getView() +'layout',
           version: 'NTWRK>>IDN>' + systemVersion,
           access: access_li,

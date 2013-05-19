@@ -226,6 +226,13 @@ textarea{
   top: 280px;
 }
 
+.admin-tags-management .tag-manage{
+  display: inline-block;
+  min-width: 100px;
+  text-align: center;
+  padding: 6px 15px;
+}
+
 .ani-40x {
   /*font-family: "Courier New", Courier, Monospace;*/
 }

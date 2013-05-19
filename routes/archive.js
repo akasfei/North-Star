@@ -116,10 +116,19 @@ module.exports = function(app, config) {
   
   app.post('/archive/get',function(req, res){
     setLang(req, renderer);
-    var filter = req.body.filter.split(',');
-      db.find_and_render('article_entry_thumbnail', 'archive',{ 'accesslevel' : {$lte : '1'}, 'tags': {$all : filter} }, {'_id': -1}, 3, function(contents){
-      res.send({content: contents});
-    }, renderer, false);
+    var length = req.body.length;
+    if (typeof length === 'undefined')
+      length = 3;
+    if (req.body.filter === 'all') {
+      db.find_and_render('article_entry_thumbnail', 'archive',{ 'accesslevel' : {$lte : '1'} }, {'_id': -1}, length, function(contents){
+        res.send({content: contents});
+      }, renderer, false);
+    } else {
+      var filter = req.body.filter.split(',');
+      db.find_and_render('article_entry_thumbnail', 'archive',{ 'accesslevel' : {$lte : '1'}, 'tags': {$all : filter} }, {'_id': -1}, length, function(contents){
+        res.send({content: contents});
+      }, renderer, false);
+    }
   });
   
   app.post('/archive/comment', function(req, res){

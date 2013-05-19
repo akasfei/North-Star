@@ -34,15 +34,12 @@ module.exports = function (app){
     var access_li = (req.session.access == null) ? 
         renderer.nav_dropdown_li('NA',-1) : 
         renderer.nav_dropdown_li(req.session.access.id,req.session.access.clearance.level);
-    db.find_and_render('article_entry_thumbnail', 'archive', { 'accesslevel' : {$lte : '1'} }, {'_id': -1}, 3, function(contents){
     res.render(renderer.getView() + 'index', { 
-        layout: renderer.getView() + 'indexlayout',
-        title: 'index',
-        version: 'NTWRK>>SYS>' + systemVersion,
-        archive_content: contents,
-        access: access_li
-      });
-    }, renderer, false);
+      layout: renderer.getView() + 'indexlayout',
+      title: 'index',
+      version: 'NTWRK>>SYS>' + systemVersion,
+      access: access_li
+    });
     /*var mongourl = db.generate_mongo_url();
     require('mongodb').connect(mongourl, function(err, conn){
       conn.collection('archive', function(err, coll){

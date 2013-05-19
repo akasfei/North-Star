@@ -37,7 +37,7 @@ module.exports = function (app, config){
         });
       }, renderer, true);
     } else {
-      res.render(renderer.getView() + '401', {
+      res.status(401).render(renderer.getView() + '401', {
         title: '',
         layout: renderer.getView() +'idnlayout',
         version: 'NTWRK>>IDN>' + systemVersion,
@@ -71,7 +71,7 @@ module.exports = function (app, config){
         nav_archive: renderer.nav_extend({'render_manage': req.session.access.clearance.admin})
       });
     } else {
-      res.render(renderer.getView() + '401', {
+      res.status(401).render(renderer.getView() + '401', {
         title: '',
         layout: renderer.getView() +'idnlayout',
         version: 'NTWRK>>IDN>' + systemVersion,
@@ -95,7 +95,7 @@ module.exports = function (app, config){
           nav_archive: renderer.nav_extend({})
         });
     else
-      res.render(renderer.getView() + '401', {
+      res.status(401).render(renderer.getView() + '401', {
           title: '',
           layout: renderer.getView() +'idnlayout',
           version: 'NTWRK>>IDN>' + systemVersion,
@@ -130,7 +130,7 @@ module.exports = function (app, config){
         });
       }, renderer, false);
       else
-        return res.render(renderer.getView() + '404', {
+        return res.status(404).render(renderer.getView() + '404', {
         title: '',
         layout: renderer.getView() +'idnlayout',
         version: 'NTWRK>>IDN>' + systemVersion,
@@ -142,7 +142,7 @@ module.exports = function (app, config){
   
   app.post('/idn/profile/edit', function (req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':['authenticated']}) ){
-      res.send({err: renderer.locale.Not_Authenticated});
+      res.status(401).send({err: renderer.locale.Not_Authenticated});
       return;
     }
     for (var prop in req.body){
@@ -160,7 +160,7 @@ module.exports = function (app, config){
 
   app.post('/idn/profile/edit/passwd', function (req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':['authenticated']}) ){
-      res.send({err: renderer.locale.Not_Authenticated});
+      res.status(401).send({err: renderer.locale.Not_Authenticated});
       return;
     }
     var hash1 = require('crypto').createHash('sha1');
@@ -182,7 +182,7 @@ module.exports = function (app, config){
   
   app.post('/idn/profile/edit/imgselect', function (req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':['authenticated']}) ){
-      res.send({err: renderer.locale.Not_Authenticated});
+      res.status(401).send({err: renderer.locale.Not_Authenticated});
       return;
     }
     req.session.access.profileimg = req.body.src;
@@ -209,7 +209,7 @@ module.exports = function (app, config){
   
   app.post('/idn/contact/follow', function(req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':['authenticated']}) ){
-      return res.send({err: renderer.locale.Not_Authenticated});
+      return res.status(401).send({err: renderer.locale.Not_Authenticated});
     }
     db.update('access', {'id': req.session.access.id}, { $addToSet: { 'follows': req.body.followID } }, true, function(err){
       if (err)
@@ -226,7 +226,7 @@ module.exports = function (app, config){
   
   app.post('/idn/contact/unfollow', function(req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':['authenticated']}) ){
-      return res.send({err: renderer.locale.Not_Authenticated});
+      return res.status(401).send({err: renderer.locale.Not_Authenticated});
     }
     var notfound = true;
     if (req.session.access.follows && req.session.access.follows.length > 0){

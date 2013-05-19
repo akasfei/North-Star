@@ -40,7 +40,7 @@ module.exports = function(app, config) {
       var level = req.session.access.clearance.level.toString();
       db.findOne('access', {'id': req.session.access.id }, function (err, doc){
         if (err)
-          return res.render(renderer.getView() + '401', {
+          return res.status(401).render(renderer.getView() + '401', {
           title: 'archive',
           layout: renderer.getView() +'idnlayout',
           version: 'NTWRK>>IDN>' + systemVersion,
@@ -77,7 +77,7 @@ module.exports = function(app, config) {
               nav_archive: renderer.nav_extend({'render_archive': true, 'render_manage': req.session.access.clearance.admin})
             });
         } else
-          return res.render(renderer.getView() + '404', {
+          return res.status(404).render(renderer.getView() + '404', {
             title: 'archive',
             layout: renderer.getView() +'idnlayout',
             version: 'NTWRK>>IDN>' + systemVersion,
@@ -123,7 +123,7 @@ module.exports = function(app, config) {
           });
         }, renderer);
     } else {
-      res.render(renderer.getView() + '401', {
+      res.status(401).render(renderer.getView() + '401', {
           title: 'archive',
           layout: renderer.getView() +'idnlayout',
           version: 'NTWRK>>IDN>' + systemVersion,

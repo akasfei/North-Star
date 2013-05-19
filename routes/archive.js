@@ -97,14 +97,14 @@ module.exports = function(app, config) {
           access: access_li
         });
       } else
-        res.render(renderer.getView() + '403', { 
+        res.status(403).render(renderer.getView() + '403', { 
           title: 'archive',
           layout: renderer.getView() + 'layout',
           version: 'NTWRK>>SYS>' + systemVersion,
           access: access_li,
         });
       } else {
-        res.render(renderer.getView() + '404', {
+        res.status(404).render(renderer.getView() + '404', {
           title: 'archive',
           layout: renderer.getView() + 'layout',
           version: 'NTWRK>>SYS>' + systemVersion,
@@ -124,7 +124,7 @@ module.exports = function(app, config) {
   
   app.post('/archive/comment', function(req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':['authenticated']}) ){
-      res.send({err: renderer.locale.Not_Authenticated});
+      res.status(401).send({err: renderer.locale.Not_Authenticated});
       return;
     }
     var comment = {
@@ -135,7 +135,7 @@ module.exports = function(app, config) {
     };
     db.update('archive', {'_id': new db.ObjectID(req.body.entryid)}, {$push: {comments: comment} }, true, function (err){
       if (err)
-        res.send({'ok': false, 'err': err});
+        res.send(err);
       else
         res.send({'ok': true, 'comment': renderer.comment(comment, req.session.access)});
     });
@@ -156,7 +156,7 @@ module.exports = function(app, config) {
           }
         }
         if (! Fortress({'req': req, 'res': res, 'protocols': ['idmatch','admin'], 'params': [comment_author], 'operator': 'OR'}) ){
-          return res.send({err: 'Error: Access ID mismatch.'});
+          return res.status(403).send({err: 'Error: Access ID mismatch.'});
         }
         db.update('archive', {'_id': new db.ObjectID(req.body.entryid)}, {$pull: {comments: {'id': req.body.id}} }, true, function (err){
           if (err)
@@ -171,7 +171,7 @@ module.exports = function(app, config) {
   
   app.post('/archive/comment/removeall', function(req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':['admin']}) ){
-      res.send({err: 'Error: Administrator priviledges required.'});
+      res.status(403).send({err: 'Error: Administrator priviledges required.'});
       return;
     }
     db.update('archive', {'entrytitle': req.body.entrytitle}, {comments: []}, false, function (err){

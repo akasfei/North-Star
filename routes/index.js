@@ -112,7 +112,7 @@ module.exports = function (app){
           nav_archive: renderer.nav_extend({})
         });
     } else {
-      res.render(renderer.getView() + '401', { 
+      res.status(401).render(renderer.getView() + '401', { 
           title: '',
           layout: renderer.getView() +'layout',
           version: 'NTWRK>>IDN>' + systemVersion,
@@ -127,6 +127,7 @@ module.exports = function (app){
   require('./idn_archive')(app, config);
   require('./idn_access')(app, config);
   require('./idn_contact')(app, config);
+
   //app.get('/webapp',routes.webapp);
   //app.get('/webapp/:appname',routes.webapp_app);
 }

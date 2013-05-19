@@ -34,7 +34,7 @@ module.exports = function(app, config) {
         renderer.nav_dropdown_li('NA',-1) : 
         renderer.nav_dropdown_li(req.session.access.id,req.session.access.clearance.level);
     if (req.session.access == null)
-      res.render(renderer.getView() + '401', { 
+      res.status(401).render(renderer.getView() + '401', { 
         title: '',
         layout: renderer.getView() +'idnlayout',
         version: 'NTWRK>>IDN>' + systemVersion,
@@ -70,7 +70,7 @@ module.exports = function(app, config) {
           nav_archive: renderer.nav_extend({'render_archive': true, 'render_manage': req.session.access.clearance.admin})
         });
       else
-        res.render(renderer.getView() + '403', {
+        res.status(403).render(renderer.getView() + '403', {
           title: 'archive',
           layout: renderer.getView() +'idnlayout',
           version: 'NTWRK>>IDN>' + systemVersion,
@@ -78,7 +78,7 @@ module.exports = function(app, config) {
           nav_archive: renderer.nav_extend({'render_archive': true})
        });
     } else
-      res.render(renderer.getView() + '401', {
+      res.status(401).render(renderer.getView() + '401', {
         title: 'archive',
         layout: renderer.getView() +'idnlayout',
         version: 'NTWRK>>IDN>' + systemVersion,
@@ -123,7 +123,7 @@ module.exports = function(app, config) {
         renderer.nav_dropdown_li('NA',-1) : 
         renderer.nav_dropdown_li(req.session.access.id,req.session.access.clearance.level);
     if (!req.query.t)  {
-      res.render(renderer.getView() + '404', {
+      res.status(404).render(renderer.getView() + '404', {
         title: 'archive',
         layout: renderer.getView() +'idnlayout',
         version: 'NTWRK>>IDN>' + systemVersion,
@@ -153,7 +153,7 @@ module.exports = function(app, config) {
                 nav_archive: renderer.nav_extend({'render_archive': true, 'render_manage': req.session.access.clearance.admin})
               });
             else
-              res.render(renderer.getView() + '403', { 
+              res.status(403).render(renderer.getView() + '403', { 
                 title: 'archive',
                 layout: renderer.getView() +'idnlayout',
                 version: 'NTWRK>>IDN>' + systemVersion,
@@ -161,7 +161,7 @@ module.exports = function(app, config) {
                 nav_archive: renderer.extend(true, req.session.access.clearance.admin)
               });
       } else {
-        res.render(renderer.getView() + '404', {
+        res.status(404).render(renderer.getView() + '404', {
           title: 'archive',
           layout: renderer.getView() +'idnlayout',
           version: 'NTWRK>>IDN>' + systemVersion,
@@ -224,7 +224,7 @@ module.exports = function(app, config) {
         return res.send(err);
       if (doc){
         if (! Fortress({'req': req, 'res': res, 'protocols':['idmatch','admin'], 'operator': 'OR', 'params': [doc.authorid]}) ){
-          return res.send({err: 'Error: You do not have the clearance required to edit this article.'});
+          return res.status(403).send({err: 'Error: You do not have the clearance required to edit this article.'});
         }
       db.remove('archive', {'_id' : new db.ObjectID(req.body.objid)},function(err){
         if (err)
@@ -241,13 +241,13 @@ module.exports = function(app, config) {
         }
       });
       } else
-        res.send({err: 'Could not find specific entry.'});
+        res.status(404).send({err: 'Could not find specific entry.'});
     });
   });
 
   app.post('/idn/archive/rmtags', function(req,res){
     if (! Fortress({'req': req, 'res': res, 'protocols':['admin']}) ){
-      res.send({err: 'Error: Administrator priviledges required.'});
+      res.status(403).send({err: 'Error: Administrator priviledges required.'});
       return;
     }
     db.update('archive',{'entrytitle' : 'tags_container'},{$pull : {'tagname' : req.body.tagname}},true,function(err){

@@ -32,7 +32,7 @@ module.exports = function(app, config) {
         renderer.nav_dropdown_li('NA',-1) : 
         renderer.nav_dropdown_li(req.session.access.id,req.session.access.clearance.level);
     if (req.session.access == null)
-      res.render(renderer.getView() + '401', { 
+      res.status(401).render(renderer.getView() + '401', { 
         title: '',
         layout: renderer.getView() +'idnlayout',
         version: 'NTWRK>>IDN>' + systemVersion,
@@ -168,7 +168,7 @@ module.exports = function(app, config) {
         renderer.nav_dropdown_li('NA',-1) : 
         renderer.nav_dropdown_li(req.session.access.id,req.session.access.clearance.level);
     if (req.session.access == null)
-      res.render(renderer.getView() + '401', { 
+      res.status(401).render(renderer.getView() + '401', { 
         title: '',
         layout: renderer.getView() +'idnlayout',
         version: 'NTWRK>>IDN>' + systemVersion,
@@ -177,7 +177,7 @@ module.exports = function(app, config) {
       });
     else{
       if (!req.session.access.clearance.admin){
-        res.render(renderer.getView() + '403', { 
+        res.status(403).render(renderer.getView() + '403', { 
           title: '',
           layout: renderer.getView() +'idnlayout',
           version: 'NTWRK>>IDN>' + systemVersion,
@@ -201,7 +201,7 @@ module.exports = function(app, config) {
   
   app.post('/idn/access/manage/getexisting', function(req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':['admin']}) ){
-      res.send({err: 'Error: Administrator priviledges required.'});
+      res.status(403).send({err: 'Error: Administrator priviledges required.'});
       return;
     }
     db.find_and_render('access_entry', 'access', {}, {}, 0, function(contents){
@@ -211,7 +211,7 @@ module.exports = function(app, config) {
   
   app.post('/idn/access/manage/getrequest', function(req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':'admin'}) ){
-      res.send({err: 'Error: Administrator priviledges required.'});
+      res.status(403).send({err: 'Error: Administrator priviledges required.'});
       return;
     }
     db.find_and_render('access_request_entry', 'access_request', {}, {'time': 1}, 0, function(contents){
@@ -221,7 +221,7 @@ module.exports = function(app, config) {
   
   app.post('/idn/access/manage/new', function(req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':'admin'}) ){
-      res.send({err: 'Error: Administrator priviledges required.'});
+      res.status(403).send({err: 'Error: Administrator priviledges required.'});
       return;
     }
     var mongourl = db.generate_mongo_url();
@@ -256,7 +256,7 @@ module.exports = function(app, config) {
   
   app.post('/idn/access/manage/request', function(req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':'admin'}) ){
-      res.send({err: 'Error: Administrator priviledges required.'});
+      res.status(403).send({err: 'Error: Administrator priviledges required.'});
       return;
     }
     if (req.body.grant == 'true')  {
@@ -316,7 +316,7 @@ module.exports = function(app, config) {
   
   app.post('/idn/access/manage',function(req, res) {
     if (! Fortress({'req': req, 'res': res, 'protocols':'admin'}) ){
-      res.send({err: 'Error: Administrator priviledges required.'});
+      res.status(403).send({err: 'Error: Administrator priviledges required.'});
       return;
     }
     var access_clearance = {
@@ -342,7 +342,7 @@ module.exports = function(app, config) {
   
   app.post('/idn/access/manage/remove', function(req, res){
     if (! Fortress({'req': req, 'res': res, 'protocols':'admin'}) ){
-      res.send({err: 'Error: Administrator priviledges required.'});
+      res.status(401).send({err: 'Error: Administrator priviledges required.'});
       return;
     }
     db.remove('access', {'_id' : new db.ObjectID(req.body._id)}, function(err){
@@ -391,7 +391,7 @@ module.exports = function(app, config) {
           });
         }, renderer, req.session.access.clearance.admin);
       } else
-        res.send({'ok': false, 'err': renderer.invalid_code()});
+        res.send({'err': renderer.invalid_code()});
     });
   });
 }

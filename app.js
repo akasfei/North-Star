@@ -9,6 +9,7 @@ var express = require('express');
 var MongoStore = require('connect-mongo')(express);
 var filesystem = require('fs');
 var app = module.exports = express.createServer();
+var systemVersion = require('./package').version;
 app.db = mongodb;
 
 // Configuration
@@ -65,7 +66,7 @@ require('./models/init')(app, function (err){
     app.use(express.methodOverride());
     app.use(app.router);
     app.use(express.static(__dirname + '/public'));
-    });
+  });
     
     app.configure('development', function(){
       app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));

@@ -30,19 +30,16 @@ module.exports = function (app){
   };
   
   var index = function(req, res){
-  setLang(req, renderer);
+    setLang(req, renderer);
     var access_li = (req.session.access == null) ? 
         renderer.nav_dropdown_li('NA',-1) : 
         renderer.nav_dropdown_li(req.session.access.id,req.session.access.clearance.level);
-    db.find_and_render('article_entry_thumbnail', 'archive', { 'accesslevel' : {$lte : '1'} }, {'_id': -1}, 3, function(contents){
     res.render(renderer.getView() + 'index', { 
-        layout: renderer.getView() + 'indexlayout',
-        title: 'index',
-        version: 'NTWRK>>SYS>' + systemVersion,
-        archive_content: contents,
-        access: access_li
-      });
-  }, renderer, false);
+      layout: renderer.getView() + 'indexlayout',
+      title: 'index',
+      version: 'NTWRK>>SYS>' + systemVersion,
+      access: access_li
+    });
     /*var mongourl = db.generate_mongo_url();
     require('mongodb').connect(mongourl, function(err, conn){
       conn.collection('archive', function(err, coll){
@@ -85,41 +82,44 @@ module.exports = function (app){
   app.get('/index', index);
   
   app.get('/about',function(req, res){
-  setLang(req, renderer);
+    setLang(req, renderer);
     var access_li = (req.session.access == null) ? 
         renderer.nav_dropdown_li('NA',-1) : 
         renderer.nav_dropdown_li(req.session.access.id,req.session.access.clearance.level);
     res.render(renderer.getView() + 'about', { 
       title: 'about',
-    layout: renderer.getView() + 'layout',
+      layout: renderer.getView() + 'layout',
       version: 'NTWRK>>SYS>' + systemVersion,
       access: access_li
     });
   });
   
   app.get('/admin', function(req, res){
-  setLang(req, renderer);
+    setLang(req, renderer);
     var access_li = (req.session.access == null) ? 
         renderer.nav_dropdown_li('NA',-1) : 
         renderer.nav_dropdown_li(req.session.access.id,req.session.access.clearance.level);
-  if (req.session.access && req.session.access.clearance.admin){
-    res.render('admin', { 
-        title: '',
-    mongourl: db.generate_mongo_url(),
-        layout: renderer.getView() +'layout',
-        version: 'NTWRK>>IDN>' + systemVersion,
-        access: access_li,
-        nav_archive: renderer.nav_extend({})
-      });
-  } else {
-    res.render(renderer.getView() + '401', { 
-        title: '',
-        layout: renderer.getView() +'layout',
-        version: 'NTWRK>>IDN>' + systemVersion,
-        access: access_li,
-        nav_archive: renderer.nav_extend({})
-      });
-  }
+    var info = {
+      mongourl: db.generate_mongo_url(),
+    }
+    if (req.session.access && req.session.access.clearance.admin){
+      res.render('admin', { 
+          title: '',
+          info: info,
+          layout: renderer.getView() +'layout',
+          version: 'NTWRK>>IDN>' + systemVersion,
+          access: access_li,
+          nav_archive: renderer.nav_extend({})
+        });
+    } else {
+      res.status(401).render(renderer.getView() + '401', { 
+          title: '',
+          layout: renderer.getView() +'layout',
+          version: 'NTWRK>>IDN>' + systemVersion,
+          access: access_li,
+          nav_archive: renderer.nav_extend({})
+        });
+    }
   });
   
   require('./archive')(app, config);
@@ -127,6 +127,7 @@ module.exports = function (app){
   require('./idn_archive')(app, config);
   require('./idn_access')(app, config);
   require('./idn_contact')(app, config);
+
   //app.get('/webapp',routes.webapp);
   //app.get('/webapp/:appname',routes.webapp_app);
 }

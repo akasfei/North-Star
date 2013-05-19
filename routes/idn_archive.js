@@ -142,6 +142,7 @@ module.exports = function(app, config) {
               res.render(renderer.getView() + 'archive_edit', {
                 title: 'archive',
                 layout: renderer.getView() +'idnlayout',
+                objid: doc._id,
                 entrytitle : doc.entrytitle,
                 abstract : doc.abstract,
                 content : doc.content,
@@ -173,18 +174,18 @@ module.exports = function(app, config) {
   });
   
   app.post('/idn/archive/edit',function(req, res) {
-    db.findOne('archive', {'entrytitle' : req.body.entrytitle}, function(err, doc){
+    db.findOne('archive', {'_id' : new db.ObjectID(req.body.objid)}, function(err, doc){
       if (err)
         return res.send(err);
       if (doc){
         if (! Fortress({'req': req, 'res': res, 'protocols':['idmatch','admin'], 'operator': 'OR', 'params': [doc.authorid]}) ){
-          return res.send({err: 'Error: You do not have the clearance required to edit this article.'});
+          return res.status(403).send({err: 'Error: You do not have the clearance required to edit this article.'});
         }
         for (var prop in req.body){
           if (typeof (req.body[prop]) === 'string')
             req.body[prop] = req.body[prop].replace(/\<script.*src\=.*http\<\/script\>/, ' ').replace(/\<script.{200,}\<\/script\>/, ' ');
         }
-        db.update('archive', {'entrytitle' : req.body.entrytitle}, req.body, false, function(err){
+        db.update('archive', {'_id' : new db.ObjectID(req.body.objid)}, req.body, false, function(err){
           if (err)
           return res.send(err);
           else {

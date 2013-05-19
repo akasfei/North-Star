@@ -59,12 +59,13 @@ $(document).ready(function(e) {
       exceptions.push(exceptions_span[i].innerText);
       var postdata = {
         'entrytitle' : $('#entrytitle').val(),
+        'objid': $('.blogsArchive > article').attr('data-objid'),
         'abstract' : $('#abstract').val(),
         'content' : contentdata,
         'accesslevel' : parseInt($('#accesslevel').val()),
-      'exceptions' : exceptions,
-      'language' : _this.attr('data-lang'),
-      'tags': tags,
+        'exceptions' : exceptions,
+        'language' : _this.attr('data-lang'),
+        'tags': tags,
         'time' : new Date()
       }
       $('.alert').alert();
@@ -94,7 +95,7 @@ $(document).ready(function(e) {
       }
     var $toggle = $('.submit').parent().parent().siblings('.dropdown-toggle');
     $toggle.button('loading');
-    $.post('/idn/archive/edit',postdata,function(data, stats) {
+    $.post('/idn/archive/edit',postdata,function(data) {
       $toggle.button('reset');
     if (data.ok){
         window.location.href = '/archive/' + data.title;

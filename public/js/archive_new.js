@@ -49,7 +49,7 @@ $(document).ready(function(e) {
 
   $('.new_blog_submit').click(function(e) {
     var contentdata;
-    if ($('#editor').hasClass('active'))
+    if ($('#editor-toggle-html').hasClass('active'))
       contentdata = CKEDITOR.instances.editor.getData();
     else
       contentdata = toHTML($('.markditor-content').val());

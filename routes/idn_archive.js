@@ -167,7 +167,7 @@ module.exports = function(app, config) {
           layout: renderer.getView() +'idnlayout',
           version: 'NTWRK>>IDN>' + systemVersion,
           access: access_li,
-          nav_archive: renderer.extend(false, false)
+          nav_archive: renderer.nav_extend({})
         });
       }
     });

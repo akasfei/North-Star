@@ -83,7 +83,7 @@ var render_article_entry = function (entry, enable_edit){
     edit_buttons = this.buttons_edit(title);
   return ('<article class="blogPreview entry_article '+ entry.language +'" data-objid="' + entry._id +'"><header>' + 
     '<span class="label label-inverse pull-right">'+ this.locale.Access_level + accesslevel + '</span>' +
-    '<h2><a href="/archive/' + title + '">' + title + '</a> ' + tags + '</h2>' + 
+    '<h2><a href="/archive/' + this.encodeURL(title) + '">' + title + '</a> ' + tags + '</h2>' + 
   '<div class="btn-group"><a class="btn btn-link author-id dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><i class="icon-user"></i>' + entry.author + '</a><div class="dropdown-menu profile-thumbnail"><img src="/img/squareajax_30.gif" alt="Loading" ></div></div>' +
     '<h6>' + 
       this.locale.Time_Stamp+': 0x' + require('./misc').getTimeStamp(time) + 
@@ -110,7 +110,7 @@ var render_article_entry_thumbnail = function (entry, enable_edit){
   if (enable_edit)
     edit_buttons = this.buttons_edit(title);
   return ('<li class="span4 entry_thumbnail"><div class="thumbnail '+ entry.language +'" data-objid="' + entry._id +'"><header>' + 
-    '<h2><a href="/archive/' + title + '">' + title + '</a> ' + tags+ '</h2>' +
+    '<h2><a href="/archive/' + this.encodeURL(title) + '">' + title + '</a> ' + tags+ '</h2>' +
   '<div class="btn-group"><a class="btn btn-link author-id dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><i class="icon-user"></i>' + entry.author + '</a><div class="dropdown-menu profile-thumbnail"><img src="/img/squareajax_30.gif" alt="loading" ></div></div>' +
   '<span class="label label-inverse pull-right">'+ this.locale.Access_level + accesslevel + '</span>' +
     '<h6>' + 
@@ -242,7 +242,7 @@ var render_article_log = function(log){
 
 
 var render_buttons_edit = function(title){
-  return ('<a href="/idn/archive/edit?t=' + title + '" class="btn"><i class="icon-edit"></i>'+this.locale.Modify+'</a> <a href="javascript:void(0)" class="btn btn-danger entry_remove"><i class="icon-remove icon-white"></i>'+this.locale.Delete+'</a> <a href="javascript:void(0)" class="btn btn-danger entry_remove_confirm" style="display:none"><i class="icon-warning-sign icon-white"></i>' + this.locale.Confirm +'</a>');
+  return ('<a href="/idn/archive/edit?t=' + this.encodeURL(title) + '" class="btn"><i class="icon-edit"></i>'+this.locale.Modify+'</a> <a href="javascript:void(0)" class="btn btn-danger entry_remove"><i class="icon-remove icon-white"></i>'+this.locale.Delete+'</a> <a href="javascript:void(0)" class="btn btn-danger entry_remove_confirm" style="display:none"><i class="icon-warning-sign icon-white"></i>' + this.locale.Confirm +'</a>');
 }
 
 var render_comment = function(comment, access){
@@ -341,9 +341,9 @@ var render_profile_thumbnail = function(access, req){
     follow_btn = '<a href="javascript:void(0)" class="btn btn-small btn-success profile-follow-btn">'+this.locale.follow+'</a>';
   }
   return ('<div class="profile-head">' +
-  '<a class="pull-left" href="/idn/profile/' + access.id +'">' + '<img src="/assets/profileimg_thumb/' + (access.profileimg ? access.profileimg: 'Monochrome.jpg') + '"></a>' +
+  '<a class="pull-left" href="/idn/profile/' + this.encodeURL(access.id) +'">' + '<img src="/assets/profileimg_thumb/' + (access.profileimg ? access.profileimg: 'Monochrome.jpg') + '"></a>' +
   '<div class="profile-id">' + 
-    '<h4><a href="/idn/profile/' + access.id +'">' + access.id + '</a></h4>' +
+    '<h4><a href="/idn/profile/' + this.encodeURL(access.id) +'">' + access.id + '</a></h4>' +
     '<span class="label label-inverse">'+ this.locale.Access_level + access.clearance.level + '</span>' +
   '</div>' +
   '</div>' +
@@ -377,9 +377,9 @@ var render_profile_article = function(access, req){
     follow_btn = '<a href="javascript:void(0)" class="btn btn-small btn-success profile-follow-btn">'+this.locale.follow+'</a>';
   }
   return ('<article class="profile-article"><div class="profile-head">' +
-  '<a class="pull-left" href="/idn/profile/' + access.id +'">' + '<img class="img-polaroid" src="/assets/profileimg/' + (access.profileimg ? access.profileimg: 'Monochrome.jpg') + '"></a>' +
+  '<a class="pull-left" href="/idn/profile/' + this.encodeURL(access.id) +'">' + '<img class="img-polaroid" src="/assets/profileimg/' + (access.profileimg ? access.profileimg: 'Monochrome.jpg') + '"></a>' +
   '<div class="profile-id">' + 
-    '<h2><a href="/idn/profile/' + access.id +'">' + access.id + '</a></h2>' +
+    '<h2><a href="/idn/profile/' + this.encodeURL(access.id) +'">' + access.id + '</a></h2>' +
     '<span class="label label-inverse">'+ this.locale.Access_level + access.clearance.level + '</span>' +
   '</div>' +
   '</div>' +
@@ -388,6 +388,14 @@ var render_profile_article = function(access, req){
   '</div>' + '<div class="profile-follow">' +
     follow_btn +
   '</div></article>');
+}
+
+var encodeURL = function(src) {
+  var table = ['%', '$', '&', '+', ',', '/', ':', ';', '=', '?', '@', '\x22', '\x34', '<', '>', '#', '{', '}', '|', '\\', '^', '~', '[', ']', '`'];
+  for (var i = 0; i<table.length; i++){
+    src = src.replace( new RegExp('\\' + table[i]), '%' + require('../public/js/sfeijst').sjt_convert_decToHex(table[i].charCodeAt(0)) );
+  }
+  return src;
 }
 
 var setLang = function(lang) {
@@ -465,6 +473,7 @@ function Renderer(lang){
   this.profile_thumbnail = render_profile_thumbnail;
   this.profile_not_found = render_profile_not_found;
   this.profile_article = render_profile_article;
+  this.encodeURL = encodeURL;
 };
 
 module.exports = Renderer;

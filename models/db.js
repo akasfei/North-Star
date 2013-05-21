@@ -66,8 +66,10 @@ var Log = require('../models/log');
 
 var find_and_render = function(type, collection, query, sort, limit, callback, renderer, admin){
   require('mongodb').connect(this.generate_mongo_url(), function(err, conn){
-    if (err || !conn)
+    if (!conn)
       return callback('Error: No open connections');
+    if (err)
+      return callback(err.stack);
     conn.collection(collection, function(err, coll){
       coll.find(query/*{ 'accesslevel' : {$lte : '1'} }*/, function(err, cursor){
         var contents = '';
@@ -77,7 +79,7 @@ var find_and_render = function(type, collection, query, sort, limit, callback, r
           cursor.each(function(err, entry) {
             if (err)
             {
-              contents = '<p>' + err + '</p>';
+              contents = '<p>' + err.stack + '</p>';
               return;
             }
             if(entry == null) {

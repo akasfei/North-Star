@@ -53,7 +53,8 @@ exports.en = {
   'profile': 'Profile',
   'Profile_not_found': 'Profile not found.',
   'Not_following': 'You are not following this user.',
-  'signInToFollow': 'Sign in to follow'
+  'signInToFollow': 'Sign in to follow',
+  'Stardate': '@Stardate'
 }
 
 exports.zh = {
@@ -105,7 +106,8 @@ exports.zh = {
   'profile': '资料',
   'Profile_not_found': '未找到档案条目。',
   'Not_following': '您当前没有关注该用户。',
-  'signInToFollow': '认证以关注该用户'
+  'signInToFollow': '认证以关注该用户',
+  'Stardate': '@星历'
 }
 
 exports.setLang = function (req, renderer){

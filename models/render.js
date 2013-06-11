@@ -86,7 +86,7 @@ var render_article_entry = function (entry, enable_edit){
     '<h2><a href="/archive/' + this.encodeURL(title) + '">' + title + '</a> ' + tags + '</h2>' + 
   '<div class="btn-group"><a class="btn btn-link author-id dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><i class="icon-user"></i>' + entry.author + '</a><div class="dropdown-menu profile-thumbnail"><img src="/img/squareajax_30.gif" alt="Loading" ></div></div>' +
     '<h6>' + 
-      this.locale.Time_Stamp+': 0x' + require('./misc').getTimeStamp(time) + 
+      this.locale.Stardate + ' ' + require('./misc').generate_stardate(time) + 
     '</h6>' +
     '<h5>' + 
       abstract +
@@ -114,7 +114,7 @@ var render_article_entry_thumbnail = function (entry, enable_edit){
   '<div class="btn-group"><a class="btn btn-link author-id dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)"><i class="icon-user"></i>' + entry.author + '</a><div class="dropdown-menu profile-thumbnail"><img src="/img/squareajax_30.gif" alt="loading" ></div></div>' +
   '<span class="label label-inverse pull-right">'+ this.locale.Access_level + accesslevel + '</span>' +
     '<h6>' + 
-      this.locale.Time_Stamp+': 0x' + require('./misc').getTimeStamp(time) + 
+      this.locale.Stardate + ' ' + require('./misc').generate_stardate(time) + 
     '</h6>' +
     '<h5>' + 
       abstract +

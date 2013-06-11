@@ -60,7 +60,7 @@ module.exports = function(app, config) {
                   time : new Date().toString(),
                   comments: '',
                   objid: '',
-                  timestamp : '0x' + require('../models/misc').getTimeStamp(),
+                  timestamp : '@Stardate ' + require('../models/misc').generate_stardate(),
                   version: 'NTWRK>>SYS>' + systemVersion,
                   access: access_li
         });
@@ -92,7 +92,7 @@ module.exports = function(app, config) {
           time : doc.time.toString(),
           comments: posted_comments,
           objid: doc._id,
-          timestamp : '0x' + require('../models/misc').getTimeStamp(doc.time),
+          timestamp : '@Stardate ' + require('../models/misc').generate_stardate(doc.time),
           version: 'NTWRK>>SYS>' + systemVersion,
           access: access_li
         });
@@ -140,7 +140,7 @@ module.exports = function(app, config) {
       'accessid': req.session.access.id,
       'body': req.body.comment,
       'time': new Date(),
-      'id': require('../models/misc').getTimeStamp() + req.session.access.accessObjID
+      'id': require('../models/misc').generate_stardate() + req.session.access.accessObjID
     };
     db.update('archive', {'_id': new db.ObjectID(req.body.entryid)}, {$push: {comments: comment} }, true, function (err){
       if (err)

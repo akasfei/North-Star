@@ -191,10 +191,10 @@ var inputCheck_access = function(access) {
 }
 
 var update_star_date = function() {
-  var startDate = new Date(2011, 5, 18, 0, 0, 0, 0);
+  var startDate = new Date(Date.UTC(2011, 5, 18, 0, 0, 0, 0));
   var currentDate = new Date();
   var stardate_part1 = parseInt((currentDate.getTime() - startDate.getTime())/86400000);
-  var stardate_part2 = parseInt((currentDate.getHours()*60*60*1000 + currentDate.getMinutes()*60*1000 + currentDate.getSeconds()*1000 + currentDate.getMilliseconds())/8640000*1.6)
+  var stardate_part2 = parseInt((currentDate.getUTCHours()*60*60*1000 + currentDate.getUTCMinutes()*60*1000 + currentDate.getUTCSeconds()*1000 + currentDate.getUTCMilliseconds())/8640000*1.6);
   //stardate_part1 = decToHex(stardate_part1);
   //stardate_part2 = decToHex(stardate_part2);
   var stardate_container = document.getElementById('stardate');

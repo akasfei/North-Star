@@ -1,14 +1,14 @@
 ---
 applications:
-- name: northstar
-  framework: node
-  runtime: node08
-  memory: 256M
+- name: sfeisys
+  memory: 128M
+  command: node app.js
   instances: 2
-  url: northstar.${target-base}
+  url: sfeisys.cfapps.io
   path: .
   services:
-    northstar-mongodb-8635:
-      vendor: mongodb
-      version: '2.0'
-      tier: free
+    mongolab-7dbf:
+      label: mongolab
+      provider: mongolab
+      version: n/a
+      plan: sandbox

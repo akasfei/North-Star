@@ -54,12 +54,13 @@ var port = (process.env.VMC_APP_PORT || 3000);
 var host = (process.env.VCAP_APP_HOST || 'localhost');
 
 var generate_mongo_url = function(){
-  if(this.username && this.password){
+  return this.mongourl;
+  /*if(this.username && this.password){
     return "mongodb://" + this.username + ":" + this.password + "@" + this.hostname + ":" + this.port + "/" + this.db;
   }
   else{
     return "mongodb://" + this.hostname + ":" + this.port + "/" + this.db;
-  }
+  }*/
 }
 
 var Log = require('../models/log');
@@ -180,7 +181,10 @@ var updateParam = function() {
   var params = {};
   if(process.env.VCAP_SERVICES){
     var env = JSON.parse(process.env.VCAP_SERVICES);
-    params = env['mongodb-2.0'][0]['credentials'];
+    var serviceKey = Object.keys(env)[0];
+    params = env[serviceKey][0]['credentials'];
+    this.mongourl = env[serviceKey][0].credentials.uri;
+    this.db = 'mongolab-7dbf';
   }
   else{
     params = {

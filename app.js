@@ -52,14 +52,14 @@ require('./models/init')(app, function (err){
         app.db.updateParam();
         app.use(express.session({
           store: new MongoStore({
-            db: app.db.db
+            url: app.db.mongourl
           }),
           secret: 'sfeisysCS'
         }));
       }, 300000);
       app.use(express.session({
         store: new MongoStore({
-          db: app.db.db
+          url: app.db.mongourl
         }),
         secret: 'sfeisysCS'
       }));
@@ -80,7 +80,7 @@ require('./models/init')(app, function (err){
   // Routes
   require('./routes')(app);
   
-  app.listen(80, function(){
-    console.log("SFEI Systems operating on port 80 in %s mode. [%s]", app.settings.env, new Date());
+  app.listen(process.env.VCAP_APP_PORT || 80, function(){
+    console.log("SFEI Systems operating on port %d in %s mode. [%s]",process.env.VCAP_APP_PORT || 80, app.settings.env, new Date());
   });
 });
